@@ -22,13 +22,36 @@ export default function AuthenticatedLayout({ header, children }) {
                                     <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                                 </Link>
                             </div>
-
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
                                     href={route('dashboard')}
                                     active={route().current('dashboard')}
                                 >
                                     Dashboard
+                                </NavLink>
+                                <NavLink
+                                    href={route('calendar')}
+                                    active={route().current('calendar')}
+                                >
+                                    Calendário
+                                </NavLink>
+                                <NavLink
+                                    href={route('exercises')}
+                                    active={route().current('exercises')}
+                                >
+                                    Fichas de exercício
+                                </NavLink>
+                                <NavLink
+                                    href={route('diet')}
+                                    active={route().current('diet')}
+                                >
+                                    Dieta
+                                </NavLink>
+                                <NavLink
+                                    href={route('communities')}
+                                    active={route().current('communities')}
+                                >
+                                    Comunidades
                                 </NavLink>
                             </div>
                         </div>

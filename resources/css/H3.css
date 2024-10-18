@@ -1,0 +1,10 @@
+.container {
+    position: relative; 
+}
+
+.bg-image-container3 {
+    background-image: url('/storage/images/imagem11.jpg'); /* Substitua pelo caminho correto da imagem */
+    background-size: cover;
+    background-position: center; 
+    height: 100%;
+}
