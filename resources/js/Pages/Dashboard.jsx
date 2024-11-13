@@ -1,6 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import UserInfoTable from '../Components/UserInfoTable';
+import Frequency from '../Components/Frequency';
 
 export default function Dashboard() {
     return (
@@ -16,6 +17,7 @@ export default function Dashboard() {
             <div className="min-h-screen bg-gray-100 p-4">
             <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
                 <UserInfoTable />
+                <Frequency />
             </div>
         </div>
         </AuthenticatedLayout>

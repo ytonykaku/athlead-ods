@@ -1,0 +1,68 @@
+.navbar {
+    background-color: #ffffff; /* bg-white */
+    position: fixed;
+    width: 100%;
+    z-index: 20;
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
+    transition: background-color 0.3s ease;
+  }
+
+  .navbar-content {
+    max-width: 1600px; /* Definindo uma largura máxima */
+    margin: 0 auto;    /* Centralizando a navbar */
+    padding: 2rem;   /* Adicionando padding para as margens */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+  
+  .navbar-dark {
+    background-color: #1f2937; /* dark:bg-gray-900 */
+    border-bottom-color: #4b5563; /* dark:border-gray-600 */
+  }
+
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+    space-between: 0.5rem;
+}
+  
+  .navbar-logo img {
+    width: 40px; /* Ajuste o tamanho do ícone conforme necessário */
+    height: auto;
+}
+
+  .navbar-logo span {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a202c; /* ou text-gray-900 */
+}
+  
+  .navbar-links {
+    display: flex;
+    gap: 1rem; /* Espaçamento entre os links */
+  }
+  
+  .navbar-link {
+    padding: 0.5rem 0.75rem;
+    color: #374151; /* md:text-blue-700 */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .navbar-link:hover {
+    color: #1d4ed8; /* md:hover:text-blue-700 */
+    background-color: #f3f4f6; /* hover:bg-gray-100 */
+  }
+  
+  .navbar-link-dark {
+    color: #f9fafb; /* dark:text-white */
+  }
+  
+  .navbar-link-dark:hover {
+    color: #d1d5db; /* dark:hover:text-white/80 */
+  }
+  

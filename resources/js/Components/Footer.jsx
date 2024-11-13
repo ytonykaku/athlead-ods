@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Head, Link } from '@inertiajs/react';
 
 const Footer = ({ laravelVersion, phpVersion }) => {
     return (
