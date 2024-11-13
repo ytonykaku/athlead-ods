@@ -1,38 +1,20 @@
 .header {
     background-color: #ffffff; /* bg-white */
-    container: mx-auto;
-    height: h-[70vh];
     place-items: center;
-    justify-content: between;
+    justify-content: space-between;
     transition: background-color 0.3s ease;
   }
 
   .title {
-    margin: 1rem;
+    margin-bottom: 1rem; /* 16px */
     font-size: 2.25rem;
     line-height: 2.5rem;
     font-weight: 800;
     line-height: 1;
-    letter-spacing: -0.25em;
+    letter-spacing: 0;
     color: rgb(17 24 39)
   }
 
-  @media (min-width: 768px) { /* Para telas maiores que 768px (breakpoint md) */
-    .title {
-        font-size: 3rem;  /* Para telas médias */
-    }
-    
-    .text {
-        font-size: 1.25rem; /* 20px */
-        line-height: 1.75rem; /* 28px */
-    }
-}
-
-@media (min-width: 1024px) { /* Para telas maiores que 1024px (breakpoint lg) */
-    .title {
-        font-size: 3.75rem;  /* Para telas grandes */
-    }
-}
 
   .text {
     margin-bottom: 1.5rem;
@@ -42,88 +24,4 @@
     line-height: 1;
     letter-spacing: -0.025em;
     color: rgb(107 114 128);
-
 }
-
-
-
-    
-
-
-
-<div className="container flex flex-col lg:flex-row items-center justify-between relative">
-<div className=" lg:w-1/2 max-w-lg lg:pr-8 p-4">
-    <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-        Athlead
-    </h1>
-    <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-    <a href="#" className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
-        Crie sua conta
-        <svg className="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-        </svg>
-    </a>
-</div>
-<div className="bg-image-container lg:w-1/2 h-full bg-cover bg-right relative">
-    <div className="absolute inset-0 bg-gradient-to-l from-white to-transparent opacity-50"></div>
-</div>
-</div>
-
-  .navbar-content {
-    max-width: 1600px; /* Definindo uma largura máxima */
-    margin: 0 auto;    /* Centralizando a navbar */
-    padding: 2rem;   /* Adicionando padding para as margens */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-  
-  .navbar-dark {
-    background-color: #1f2937; /* dark:bg-gray-900 */
-    border-bottom-color: #4b5563; /* dark:border-gray-600 */
-  }
-
-  .navbar-logo {
-    display: flex;
-    align-items: center;
-    space-between: 0.5rem;
-}
-  
-  .navbar-logo img {
-    width: 40px; /* Ajuste o tamanho do ícone conforme necessário */
-    height: auto;
-}
-
-  .navbar-logo span {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #1a202c; /* ou text-gray-900 */
-}
-  
-  .navbar-links {
-    display: flex;
-    gap: 1rem; /* Espaçamento entre os links */
-  }
-  
-  .navbar-link {
-    padding: 0.5rem 0.75rem;
-    color: #374151; /* md:text-blue-700 */
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease, background-color 0.3s ease;
-  }
-  
-  .navbar-link:hover {
-    color: #1d4ed8; /* md:hover:text-blue-700 */
-    background-color: #f3f4f6; /* hover:bg-gray-100 */
-  }
-  
-  .navbar-link-dark {
-    color: #f9fafb; /* dark:text-white */
-  }
-  
-  .navbar-link-dark:hover {
-    color: #d1d5db; /* dark:hover:text-white/80 */
-  }
