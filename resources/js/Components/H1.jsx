@@ -6,7 +6,7 @@ import '../../css/H1.css';
 
 const H1 = () => {
     return (
-        <div className="header mx-auto h-[70vh] flex flex-col lg:flex-row items-center justify-between relative">
+        <div className="container header mx-auto h-[70vh] flex flex-col lg:flex-row items-center justify-between relative">
             <div className="bg-white z-10 lg:w-1/2 max-w-lg lg:pr-8 p-4">
                 <h1 className="title dark:text-white">
                     Athlead

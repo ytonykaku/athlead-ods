@@ -32,10 +32,10 @@ export default function Navbar({ auth }) {
                     </nav>
                 </div>
                 <div className="navbar-links">
-                    <a href="#" className="navbar-link dark:navbar-link-dark">Home</a>
-                    <a href="#" className="navbar-link dark:navbar-link-dark">Sobre nós</a>
-                    <a href="#" className="navbar-link dark:navbar-link-dark">Serviços</a>
-                    <a href="#" className="navbar-link dark:navbar-link-dark">Nos contrate</a>
+                    <a href={route('landingpage')} className="navbar-link dark:navbar-link-dark">Home</a>
+                    <a href={route('aboutus')}  className="navbar-link dark:navbar-link-dark">Sobre nós</a>
+                    <a href={route('services')}  className="navbar-link dark:navbar-link-dark">Serviços</a>
+                    <a href={route('hireus')}  className="navbar-link dark:navbar-link-dark">Nos contrate</a>
                 </div>
             </div>
         </nav>

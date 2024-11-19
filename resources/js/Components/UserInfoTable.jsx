@@ -8,7 +8,7 @@ export default function UserInfoTable() {
                 <thead>
                     <tr>
                         <th colSpan={2} className="border-b pb-2">
-                            <Avatar /> {/* Avatar ocupa uma linha separada */}
+                            <Avatar avatarImage={"/storage/images/imagem8.jpg"}/> {/* Avatar ocupa uma linha separada */}
                         </th>
                     </tr>
                 </thead>

@@ -1,12 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '../Components/Navbar';
-import H1 from '../Components/H1';
-import H2 from '../Components/H2';
-import H3 from '@/Components/H3';
+import AboutUsJumbotron from '../Components/AboutUsJumbotron';
 import Footer from '../Components/Footer';
 import { Head, Link } from '@inertiajs/react';
 
-export default function LandingPage({ auth, laravelVersion, phpVersion }) {
+export default function AboutUs({ auth, laravelVersion, phpVersion }) {
     const [isVisible, setIsVisible] = useState(false);
     const h2Ref = useRef();
 
@@ -31,13 +29,7 @@ export default function LandingPage({ auth, laravelVersion, phpVersion }) {
         <div>
             <Navbar auth={auth}/>
             <div className = "pt-16">
-                <H1 />
-            </div>
-            <div ref={h2Ref} className={isVisible ? "slide-in-active" : "slide-in"}>
-                <H2 />
-            </div>
-            <div className = "pt-16">
-                <H3 />
+                <AboutUsJumbotron />
             </div>
             <div className = "pt-16">
                 <Footer laravelVersion={laravelVersion} phpVersion={phpVersion}/>

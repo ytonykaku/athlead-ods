@@ -47,6 +47,33 @@ Route::get('/landingpage', function(){
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('landingpage');
+
+Route::get('/aboutus', function(){
+    return Inertia::render('AboutUs', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+})->name('aboutus');
+
+Route::get('/services', function(){
+    return Inertia::render('Services', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+})->name('services');
+
+Route::get('/hireus', function(){
+    return Inertia::render('HireUs', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+})->name('hireus');
 
 require __DIR__.'/auth.php';
