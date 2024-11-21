@@ -19,11 +19,19 @@ export default function Dashboard() {
             <Head title="Dashboard" />
 
             <div className="min-h-screen bg-gray-100 p-4">
-            <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
-                <UserInfoTable userData = {user}/>
-                <Frequency />
+                <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
+                    <UserInfoTable userData = {user}/>
+                    <Frequency />
+                    
+                    <button
+                    
+                        className="rounded-md px-3 py-2 text-black ring-1 ring-black transition hover:text-black/70 focus:outline-none focus-visible:ring-black dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white float-right border border-black"
+                        style={{ marginTop: '-43px' }}                   
+                    >
+                        Baixar: Report Diário de Calorias
+                    </button>
+                </div>
             </div>
-        </div>
         </AuthenticatedLayout>
     );
 }

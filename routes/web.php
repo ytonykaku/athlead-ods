@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ExerciseController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -41,6 +42,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //Route::get('/exercises', [ExerciseController::class, 'index'])->name('exercises.index');
+    //Route::get('/exercises/{id}', [ExerciseController::class, 'show'])->name('exercises.show');
+    //Route::put('/exercises/{id}', [ExerciseController::class, 'update'])->name('exercises.update');
+    //Route::post('/exercises', [ExerciseController::class, 'store'])->name('exercises.store');
+    //Route::delete('/exercises/{id}', [ExerciseController::class, 'destroy'])->name('exercises.destroy');
 });
 
 Route::get('/landingpage', function(){
