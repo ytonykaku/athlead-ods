@@ -47,12 +47,6 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dieta
                                 </NavLink>
-                                <NavLink
-                                    href={route('communities')}
-                                    active={route().current('communities')}
-                                >
-                                    Comunidades
-                                </NavLink>
                             </div>
                         </div>
 

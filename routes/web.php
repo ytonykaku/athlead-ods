@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -14,9 +15,11 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+/*Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');*/
 
 Route::get('/calendar', function () {
     return Inertia::render('Calendar');
@@ -30,9 +33,9 @@ Route::get('/diet', function () {
     return Inertia::render('Diet');
 })->middleware(['auth', 'verified'])->name('diet');
 
-Route::get('/communities', function () {
+/* Route::get('/communities', function () {
     return Inertia::render('Communities');
-})->middleware(['auth', 'verified'])->name('communities');
+})->middleware(['auth', 'verified'])->name('communities'); */ 
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

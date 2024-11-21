@@ -35,6 +35,14 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
+        $request->user()->birthdate = $request->input('birthdate');
+        $request->user()->height = $request->input('height');
+        $request->user()->weight = $request->input('weight');
+        /*$request->user()->isAlive = $request->input('isAlive');*/
+        /*$request->user()->workoutsheet_id = $request->input('workoutsheet_id');
+        $request->user()->diet_id = $request->input('diet_id');
+        $request->user()->calendar_id = $request->input('calendar_id');*/
+
         $request->user()->save();
 
         return Redirect::route('profile.edit');
@@ -48,12 +56,13 @@ class ProfileController extends Controller
         $request->validate([
             'password' => ['required', 'current_password'],
         ]);
-
+        
         $user = $request->user();
 
-        Auth::logout();
+        $user->isAlive = false;
+        $user->save();
 
-        $user->delete();
+        Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

@@ -19,19 +19,19 @@ export default function HireUs({ auth, laravelVersion, phpVersion }) {
             </div>
             <div className="pt-20 grid grid-cols-3 gap-4">
                 <HireUsTable
-                    employeeImage={"/storage/images/imagem8.jpg"}
+                    employeeImage={"/storage/images/imagemdani.jpg"}
                     text1={"Teste 1"}
                     text2={"Teste 2"}
                     text3={"Teste 3"}
                 />
                 <HireUsTable
-                    employeeImage={"/storage/images/imagem9.jpg"}
+                    employeeImage={"/storage/images/imagemtony2.png"}
                     text1={"Outro Teste 1"}
                     text2={"Outro Teste 2"}
                     text3={"Outro Teste 3"}
                 />
                 <HireUsTable
-                    employeeImage={"/storage/images/imagem10.jpg"}
+                    employeeImage={"/storage/images/imagemsavio.jpg"}
                     text1={"Mais um Teste 1"}
                     text2={"Mais um Teste 2"}
                     text3={"Mais um Teste 3"}

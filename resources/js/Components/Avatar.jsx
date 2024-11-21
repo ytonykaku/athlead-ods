@@ -7,7 +7,7 @@ export default function Avatar({avatarImage}) {
             <img
                 src={avatarImage}
                 alt="Avatar"
-                className="w-16 h-16 rounded-full"
+                className="w-64 h-64"
             />
         </div>
     );

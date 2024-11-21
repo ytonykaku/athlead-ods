@@ -16,6 +16,9 @@ export default function UpdateProfileInformation({
         useForm({
             name: user.name,
             email: user.email,
+            height: user.height,
+            weight: user.weight,
+            birtdahte: user.birthdate,
         });
 
     const submit = (e) => {
@@ -67,6 +70,54 @@ export default function UpdateProfileInformation({
                     />
 
                     <InputError className="mt-2" message={errors.email} />
+                </div>
+
+                <div>
+                    <InputLabel htmlFor="height" value="Height" />
+
+                    <TextInput
+                        id="height"
+                        type="float"
+                        className="mt-1 block w-full"
+                        value={data.height}
+                        onChange={(e) => setData('height', e.target.value)}
+                        required
+                        autoComplete="username"
+                    />
+
+                    <InputError className="mt-2" message={errors.height} />
+                </div>
+
+                <div>
+                    <InputLabel htmlFor="weight" value="Weight" />
+
+                    <TextInput
+                        id="weight"
+                        type="float"
+                        className="mt-1 block w-full"
+                        value={data.weight}
+                        onChange={(e) => setData('weight', e.target.value)}
+                        required
+                        autoComplete="username"
+                    />
+
+                    <InputError className="mt-2" message={errors.weight} />
+                </div>
+
+                <div>
+                    <InputLabel htmlFor="birthdate" value="Birthdate" />
+
+                    <TextInput
+                        id="birthdate"
+                        type="date"
+                        className="mt-1 block w-full"
+                        value={data.birthdate}
+                        onChange={(e) => setData('birthdate', e.target.value)}
+                        required
+                        autoComplete="username"
+                    />
+
+                    <InputError className="mt-2" message={errors.birthdate} />
                 </div>
 
                 {mustVerifyEmail && user.email_verified_at === null && (
