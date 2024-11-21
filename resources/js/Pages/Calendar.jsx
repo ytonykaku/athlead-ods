@@ -43,7 +43,13 @@ export default function Calendar() {
           <option key={year} value={year}>{year}</option>
         ))}
       </select>
-
+        <button
+          className="bg-gray-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          style={{marginLeft: '20px' }}
+        >
+          Baixar: Report treinos
+      
+        </button>
       {/* Navegação por mês */}
       <div className="flex justify-between my-4">
         <button onClick={() => handleMonthChange(-1)}>←</button>
