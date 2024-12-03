@@ -1,11 +1,18 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ExerciseController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FoodController;
+
+use Inertia\Inertia;
+
+use App\Http\Middleware\IsAdmin;
+
+use Illuminate\Foundation\Application;
+
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -16,11 +23,13 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->middleware(['auth', 'verified'])
+        ->name('dashboard');
 
-/*Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');*/
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/calendar', function () {
     return Inertia::render('Calendar');
@@ -30,24 +39,37 @@ Route::get('/exercises', function () {
     return Inertia::render('Exercises');
 })->middleware(['auth', 'verified'])->name('exercises');
 
+Route::get('/food', function () {
+    return Inertia::render('Food');
+})->middleware(['auth', 'verified'])->name('food');
+
 Route::get('/diet', function () {
     return Inertia::render('Diet');
 })->middleware(['auth', 'verified'])->name('diet');
 
-/* Route::get('/communities', function () {
-    return Inertia::render('Communities');
-})->middleware(['auth', 'verified'])->name('communities'); */ 
+// Route::middleware('isAdmin')->group(function () {
+
+//     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+
+//     Route::get('/exercises', [ExerciseController::class, 'index'])->name('exercises.index');
+//     Route::get('/exercises/{id}', [ExerciseController::class, 'show'])->name('exercises.show');
+//     Route::put('/exercises/{id}', [ExerciseController::class, 'update'])->name('exercises.update');
+//     Route::post('/exercises', [ExerciseController::class, 'store'])->name('exercises.store');
+//     Route::delete('/exercises/{id}', [ExerciseController::class, 'destroy'])->name('exercises.destroy');
+
+//     Route::get('/foods', [FoodController::class, 'index'])->name('foods.index');
+//     Route::get('/food/{id}', [FoodController::class, 'show'])->name('foods.show');
+//     Route::put('/food/{id}', [FoodController::class, 'update'])->name('foods.update');
+//     Route::post('/food', [FoodController::class, 'store'])->name('foods.store');
+//     Route::delete('/food/{id}', [FoodController::class, 'destroy'])->name('foods.destroy');
+
+// });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    //Route::get('/exercises', [ExerciseController::class, 'index'])->name('exercises.index');
-    //Route::get('/exercises/{id}', [ExerciseController::class, 'show'])->name('exercises.show');
-    //Route::put('/exercises/{id}', [ExerciseController::class, 'update'])->name('exercises.update');
-    //Route::post('/exercises', [ExerciseController::class, 'store'])->name('exercises.store');
-    //Route::delete('/exercises/{id}', [ExerciseController::class, 'destroy'])->name('exercises.destroy');
 });
 
 Route::get('/landingpage', function(){

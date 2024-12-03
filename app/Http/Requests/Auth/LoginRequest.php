@@ -56,6 +56,8 @@ class LoginRequest extends FormRequest
                 'email' => 'Conta desativada.',
             ]);
         }
+        //Returnar o nome e o tipo do usário, para verificar se ele tem permissão para acessar a determinada página.
+        //$this->merge(['name' => $user->name, 'type' => $user->type]);
 
         RateLimiter::clear($this->throttleKey());
     }

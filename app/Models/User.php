@@ -28,6 +28,7 @@ class User extends Authenticatable
         'workoutsheet_id',
         'diet_id',
         'calendar_id',
+        'is_admin',
     ];
 
     /**
