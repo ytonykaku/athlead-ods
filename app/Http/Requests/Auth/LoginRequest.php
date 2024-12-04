@@ -50,7 +50,7 @@ class LoginRequest extends FormRequest
         }
 
         $user = Auth::user();
-        if(!&user->isAlive){
+        if(!$user->isAlive){
             Auth::logout();
             throw ValidationException::withMessages([
                 'email' => 'Conta desativada.',

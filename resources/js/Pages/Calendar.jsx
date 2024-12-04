@@ -75,7 +75,7 @@ export default function Calendar() {
         <h2>Registro de exercício para o dia {selectedDay}</h2>
         <form>
           <label>Ficha de Exercício:</label>
-          <input type="text" placeholder="Descreva sua ficha" />
+          <input type="text" placeholder="Qual a ficha do dia?" />
           <button type="submit">Salvar</button>
         </form>
         <button onClick={() => setIsModalOpen(false)}>Fechar</button>

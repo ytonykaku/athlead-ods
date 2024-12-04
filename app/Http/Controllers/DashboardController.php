@@ -16,6 +16,7 @@ class DashboardController extends Controller
         /*\Log::info('User data:', ['user' -> $user]);*/
 
         // Return a view with the user data
+        
         return Inertia::render('Dashboard', [
             'user' => $user,
         ]);
