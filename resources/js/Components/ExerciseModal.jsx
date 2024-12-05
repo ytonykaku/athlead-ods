@@ -9,6 +9,12 @@ export default function ExerciseModal({ isOpen, onClose }) {
         setFormFields([...formFields, { exercise: '', series: '', reps: '', weight: '' }]);
     };
 
+    const removeRow = (index) => {
+        const newFields = [...formFields];
+        newFields.splice(index, 1);
+        setFormFields(newFields);
+    };
+
     const handleChange = (index, field, value) => {
         const newFields = [...formFields];
         newFields[index][field] = value;
@@ -36,7 +42,7 @@ export default function ExerciseModal({ isOpen, onClose }) {
 
                 <div>
                     {formFields.map((field, index) => (
-                        <div key={index} className="flex space-x-4 mb-4">
+                        <div key={index} className="flex space-x-4 mb-4 items-center">
                             <select
                                 value={field.exercise}
                                 onChange={(e) => handleChange(index, 'exercise', e.target.value)}
@@ -72,6 +78,12 @@ export default function ExerciseModal({ isOpen, onClose }) {
                                 className="border-gray-300 rounded-lg p-2 w-1/6"
                                 required
                             />
+                            <button 
+                                onClick={() => removeRow(index)} 
+                                className="text-red-600 font-medium hover:underline"
+                            >
+                                Remover
+                            </button>
                         </div>
                     ))}
                 </div>
