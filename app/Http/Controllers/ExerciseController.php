@@ -74,4 +74,20 @@ class ExerciseController extends Controller{
         return redirect()-> route('exercises.index')
                          -> with('success', 'Exercício excluido com sucesso!');
     }
+
+    public function getExerciseIdByName(Request $request)
+    {
+        // Get the name from the query parameter
+        $name = $request->query('name');
+        
+        // Try to find the exercise by its name
+        $exercise = Exercise::where('name', $name)->first();
+
+        // If exercise is found, return its ID
+        if ($exercise) {
+            return response()->json(['exercise_id' => $exercise->id]);
+        } else {
+            return response()->json(['error' => 'Exercise not found'], 404);
+        }
+    }
 }

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 export default function ExerciseModal({ isOpen, onClose }) {
+    const [name, setName] = useState(''); // Novo estado para o nome da ficha
     const [formFields, setFormFields] = useState([
         { exercise: '', series: '', reps: '', weight: '' }
     ]);
@@ -21,9 +23,43 @@ export default function ExerciseModal({ isOpen, onClose }) {
         setFormFields(newFields);
     };
 
-    const handleConfirm = () => {
-        console.log('Exercícios:', formFields);
-        onClose();
+    const getExerciseId = async (exerciseName) => {
+        try {
+            const response = await axios.get(`/exercises/id`, { params: { name: exerciseName } });
+            return response.data.id;  // Assuming the response has the exercise ID
+        } catch (error) {
+            console.error('Error fetching exercise ID:', error.response?.data || error.message);
+            return null;  // Return null if an error occurs
+        }
+    };
+
+    const handleConfirm = async () => {
+        console.log('Enviando ficha:', { name, exercises: formFields });
+
+        // First, map the exercises to get their IDs
+        const exercisesWithIds = await Promise.all(formFields.map(async (field) => {
+            const exerciseId = await getExerciseId(field.exercise);
+            if (exerciseId) {
+                return { exercise_id: exerciseId, sets: field.series, reps: field.reps, weight: field.weight };
+            }
+            return null; // Return null if the exercise ID is not found
+        }));
+
+        // Filter out any null entries (in case some exercises failed to get an ID)
+        const validExercises = exercisesWithIds.filter(item => item !== null);
+
+        // Now send the workout sheet with exercises and their IDs
+        try {
+            const response = await axios.post('/workout-sheets', {
+                name, // Workout sheet name
+                exercises: validExercises,  // Exercises with IDs
+            });
+
+            console.log('Ficha criada com sucesso:', response.data);
+            onClose(); // Close modal after success
+        } catch (error) {
+            console.error('Erro ao criar ficha:', error.response?.data || error.message);
+        }
     };
 
     if (!isOpen) return null;
@@ -40,6 +76,18 @@ export default function ExerciseModal({ isOpen, onClose }) {
 
                 <h2 className="text-lg font-semibold text-gray-800 mb-4">Adicionar Exercício</h2>
 
+                {/* Campo para Nome da Ficha */}
+                <div className="mb-4">
+                    <input
+                        type="text"
+                        placeholder="Nome da Ficha"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="border-gray-300 rounded-lg p-2 w-full"
+                        required
+                    />
+                </div>
+
                 <div>
                     {formFields.map((field, index) => (
                         <div key={index} className="flex space-x-4 mb-4 items-center">
@@ -50,7 +98,7 @@ export default function ExerciseModal({ isOpen, onClose }) {
                                 required
                             >
                                 <option value="" disabled>Nome do Exercício</option>
-                                <option value="Supino">Supino</option>
+                                <option value="Supino">1</option>
                                 <option value="Agachamento">Agachamento</option>
                                 <option value="Rosca Direta">Rosca Direta</option>
                             </select>
