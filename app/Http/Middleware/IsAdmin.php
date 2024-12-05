@@ -10,7 +10,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
 class IsAdmin{
-    
+
     /**
      * Handle an incoming request.
      *
@@ -24,7 +24,7 @@ class IsAdmin{
             return $next($request);
         }
 
-        abort(403,'Acesso negado');
+        abort(403,'Acesso negado!!');
     }
 
 }

@@ -16,7 +16,4 @@ use App\Models\Admin;
 
 class AdminController extends Controller{
 
-    public function index(){
-        return Inertia::render('Admin/Dashboard');
-    }
 }
