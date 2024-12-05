@@ -2,10 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ExerciseController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DietController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -42,12 +43,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    Route::resource('foods', FoodController::class);
+    Route::resource('diets', FoodController::class);
+    Route::resource('exercises', FoodController::class);
 
-    //Route::get('/exercises', [ExerciseController::class, 'index'])->name('exercises.index');
-    //Route::get('/exercises/{id}', [ExerciseController::class, 'show'])->name('exercises.show');
-    //Route::put('/exercises/{id}', [ExerciseController::class, 'update'])->name('exercises.update');
-    //Route::post('/exercises', [ExerciseController::class, 'store'])->name('exercises.store');
-    //Route::delete('/exercises/{id}', [ExerciseController::class, 'destroy'])->name('exercises.destroy');
 });
 
 Route::get('/landingpage', function(){
