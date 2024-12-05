@@ -2,11 +2,17 @@ import React, { useState } from 'react';
 
 export default function DietModal({ isOpen, onClose }) {
     const [formFields, setFormFields] = useState([
-        { food: '', amount: '', shift:''}
+        { food: '', amount: '', shift: '' }
     ]);
 
     const addRow = () => {
-        setFormFields([...formFields, { food: '', amount: '', shift:'' }]);
+        setFormFields([...formFields, { food: '', amount: '', shift: '' }]);
+    };
+
+    const removeRow = (index) => {
+        const newFields = [...formFields];
+        newFields.splice(index, 1);
+        setFormFields(newFields);
     };
 
     const handleChange = (index, field, value) => {
@@ -36,7 +42,7 @@ export default function DietModal({ isOpen, onClose }) {
 
                 <div>
                     {formFields.map((field, index) => (
-                        <div key={index} className="flex space-x-4 mb-4">
+                        <div key={index} className="flex space-x-4 mb-4 items-center">
                             <select
                                 value={field.food}
                                 onChange={(e) => handleChange(index, 'food', e.target.value)}
@@ -64,6 +70,12 @@ export default function DietModal({ isOpen, onClose }) {
                                 className="border-gray-300 rounded-lg p-2 w-1/6"
                                 required
                             />
+                            <button 
+                                onClick={() => removeRow(index)} 
+                                className="text-red-600 font-medium hover:underline"
+                            >
+                                Remover
+                            </button>
                         </div>
                     ))}
                 </div>
