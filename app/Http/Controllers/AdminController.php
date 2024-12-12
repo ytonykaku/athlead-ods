@@ -13,7 +13,15 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Http\Controllers\ProfileController;
 use App\Models\Admin;
+use App\Models\Food;
 
 class AdminController extends Controller{
 
+    public function index(Request $request){
+
+        return Inertia::render('Profile/Edit', [
+            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'status' => session('status'),
+        ]);
+    }
 }

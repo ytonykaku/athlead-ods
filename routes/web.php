@@ -9,7 +9,7 @@ use App\Http\Controllers\FoodController;
 use Inertia\Inertia;
 
 use App\Http\Middleware\IsAdmin;
-
+use GuzzleHttp\Middleware;
 use Illuminate\Foundation\Application;
 
 use Illuminate\Support\Facades\Route;
@@ -47,28 +47,30 @@ Route::get('/diet', function () {
     return Inertia::render('Diet');
 })->middleware(['auth', 'verified'])->name('diet');
 
-Route::middleware('IsAdmin')->group(function () {
+// Route::middleware('IsAdmin')->group(function () {
 
-   Route::get('/admin', [AdminController::class, 'index'])->name('dashboard');
+//    Route::get('/admin', [AdminController::class, 'index'])->name('dashboard');
 
-    Route::get('/exercises', [ExerciseController::class, 'index'])->name('exercises.index');
-    Route::get('/exercises/{id}', [ExerciseController::class, 'show'])->name('exercises.show');
-    Route::put('/exercises/{id}', [ExerciseController::class, 'update'])->name('exercises.update');
-    Route::post('/exercises', [ExerciseController::class, 'store'])->name('exercises.store');
-    Route::delete('/exercises/{id}', [ExerciseController::class, 'destroy'])->name('exercises.destroy');
+//     Route::get('/exercises', [ExerciseController::class, 'index'])->name('exercises.index');
+//     Route::get('/exercises/{id}', [ExerciseController::class, 'show'])->name('exercises.show');
+//     Route::put('/exercises/{id}', [ExerciseController::class, 'update'])->name('exercises.update');
+//     Route::post('/exercises', [ExerciseController::class, 'store'])->name('exercises.store');
+//     Route::delete('/exercises/{id}', [ExerciseController::class, 'destroy'])->name('exercises.destroy');
 
-    Route::get('/foods', [FoodController::class, 'index'])->name('foods.index');
-    Route::get('/food/{id}', [FoodController::class, 'show'])->name('foods.show');
-    Route::put('/food/{id}', [FoodController::class, 'update'])->name('foods.update');
-    Route::post('/food', [FoodController::class, 'store'])->name('foods.store');
-    Route::delete('/food/{id}', [FoodController::class, 'destroy'])->name('foods.destroy');
+//     Route::get('/foods', [FoodController::class, 'index'])->name('foods.index');
+//     Route::get('/food/{id}', [FoodController::class, 'show'])->name('foods.show');
+//     Route::put('/food/{id}', [FoodController::class, 'update'])->name('foods.update');
+//     Route::post('/food', [FoodController::class, 'store'])->name('foods.store');
+//     Route::delete('/food/{id}', [FoodController::class, 'destroy'])->name('foods.destroy');
 
-});
+// });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/admin', [AdminController::class, 'index'])->middleware('is-admin')->name('admin');
 
 });
 

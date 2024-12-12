@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\IsAdminMiddleware;
 use GuzzleHttp\Promise\Is;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -15,8 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
-            \App\Http\Middleware\IsAdmin::class
         ]);
+        $middleware->alias(['is-admin' => IsAdminMiddleware::class]);
         //
     })
     
