@@ -6,8 +6,9 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, usePage } from '@inertiajs/react';
 
 export default function Exercises() {
-    const { props } = usePage();
-    const workoutSheets = props?.workoutSheets || []
+    const { user, workoutSheets } = usePage().props;
+
+    console.log(user);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -21,7 +22,7 @@ export default function Exercises() {
 
     // Evita erro caso a propriedade não esteja definida
     //const { workoutSheets = [] } = usePage().props;
-    console.log(props);
+    //console.log(props);
 
     return (
         <AuthenticatedLayout

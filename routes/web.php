@@ -89,6 +89,6 @@ Route::get('/hireus', function(){
     ]);
 })->name('hireus');
 
-Route::get('/exercises/id', [ExerciseController::class, 'getExerciseIdByName'])->middleware('auth');
+Route::get('/exercises', [WorkoutSheetController::class, 'index'])->name('exercises');
 
 require __DIR__.'/auth.php';

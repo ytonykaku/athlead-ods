@@ -18,7 +18,7 @@ export default function UpdateProfileInformation({
             email: user.email,
             height: user.height,
             weight: user.weight,
-            birtdahte: user.birthdate,
+            birthdate: user.birthdate,
         });
 
     const submit = (e) => {

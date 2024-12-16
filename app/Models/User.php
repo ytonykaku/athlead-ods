@@ -52,4 +52,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function workoutSheets()
+    {
+        return $this->hasMany(WorkoutSheet::class, 'user_id', 'id');
+    }
+
 }

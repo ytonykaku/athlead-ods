@@ -6,16 +6,22 @@ use App\Models\WorkoutSheet;
 use App\Models\WorkoutSheetExercise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class WorkoutSheetController extends Controller
+
 {
-    /**
-     * Lista todas as fichas do usuário autenticado.
-     */
     public function index()
     {
-        $workoutSheets = WorkoutSheet::where('user_id', Auth::id())->get();
+        $user = Auth::user();
+
+        $workoutSheets = $user->workoutSheets()->get();
+
         return Inertia::render('Exercises', [
+            'user' => $user,
             'workoutSheets' => $workoutSheets,
         ]);
     }

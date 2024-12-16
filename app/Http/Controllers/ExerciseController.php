@@ -6,15 +6,17 @@ use Illuminate\Http\Request;
 
 class ExerciseController extends Controller{
     
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(){
+    public function index()
+    {
+        // Fetch the authenticated user
+        $user = Auth::user();
 
-        $exercises = Exercise::all();
-
-        return Inertia::render('Exercise/Index', [
-            'exercises' => $exercises
+        /*\Log::info('User data:', ['user' -> $user]);*/
+        
+        // Return a view with the user data
+        
+        return Inertia::render('Exercises', [
+            'user' => $user,
         ]);
     }
 

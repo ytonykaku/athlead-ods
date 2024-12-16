@@ -13,14 +13,15 @@ export default function DataTable({ label1, label4, data = [] }) {
                 </thead>
                 <tbody>
                     {data.length > 0 ? (
-                        data.map((sheet, index) => (
-                            <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        data.map((sheet) => (
+                            <tr key={sheet.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {sheet.name}
                                 </th>
                                 <td className="px-6 py-4">
-                                    {/* Adicione ações ou links conforme necessário */}
-                                    <button className="text-blue-500 hover:underline">Visualizar</button>
+                                    <button className="text-blue-500 hover:underline">
+                                        Visualizar
+                                    </button>
                                 </td>
                             </tr>
                         ))
