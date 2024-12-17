@@ -20,9 +20,6 @@ export default function Exercises() {
         setIsModalOpen(false);
     };
 
-    // Evita erro caso a propriedade não esteja definida
-    //const { workoutSheets = [] } = usePage().props;
-    //console.log(props);
 
     return (
         <AuthenticatedLayout

@@ -1,66 +1,23 @@
 import React, { useState } from 'react';
 import AddButton from '@/Components/AddButton';
 import DietModal from '@/Components/DietModal';
-import FoodModal from '@/Components/FoodModal';
+import DataTable from '@/Components/DataTable';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 
 export default function Diet() {
-    const [isDietModalOpen, setIsDietModalOpen] = useState(false);
-    const [isFoodModalOpen, setIsFoodModalOpen] = useState(false);
-    const [diets, setDiets] = useState([]);
-    const [selectedDietIndex, setSelectedDietIndex] = useState(null);
+    const { user, diets } = usePage().props;
 
-    const openDietModal = (index = null) => {
-        setSelectedDietIndex(index);
-        setIsDietModalOpen(true);
+    console.log(user);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
     };
 
-    const closeDietModal = () => {
-        setIsDietModalOpen(false);
-    };
-
-    const openFoodModal = () => {
-        setIsFoodModalOpen(true);
-    };
-
-    const closeFoodModal = () => {
-        setIsFoodModalOpen(false);
-    };
-
-    const handleSaveDiet = (diet) => {
-        if (selectedDietIndex !== null) {
-            setDiets((prevDiets) =>
-                prevDiets.map((item, index) => index === selectedDietIndex ? diet : item)
-            );
-        } else {
-            setDiets((prevDiets) => [...prevDiets, { ...diet, foods: [] }]);
-        }
-        closeDietModal();
-        openFoodModal();
-    };
-
-    const handleSaveFoods = (foods) => {
-        if (selectedDietIndex !== null) {
-            setDiets((prevDiets) =>
-                prevDiets.map((diet, index) =>
-                    index === selectedDietIndex ? { ...diet, foods } : diet
-                )
-            );
-        } else {
-            setDiets((prevDiets) => {
-                const lastIndex = prevDiets.length - 1;
-                const newDiet = { ...prevDiets[lastIndex], foods };
-                const updatedDiets = [...prevDiets];
-                updatedDiets[lastIndex] = newDiet;
-                return updatedDiets;
-            });
-        }
-        closeFoodModal();
-    };
-
-    const handleDeleteDiet = (index) => {
-        setDiets((prevDiets) => prevDiets.filter((_, i) => i !== index));
+    const closeModal = () => {
+        setIsModalOpen(false);
     };
 
     return (
@@ -71,51 +28,18 @@ export default function Diet() {
                 </h2>
             }
         >
-            <Head title="Diet" />
+            <Head title="Diets" />
 
             <div className="min-h-screen bg-gray-100 p-4">
                 <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
-                    <AddButton handleModal={() => openDietModal()} />
-
-                    <div className="space-y-4 mt-4">
-                        {diets.map((diet, index) => (
-                            <div
-                                key={index}
-                                onClick={() => openDietModal(index)}
-                                className="border p-4 rounded-lg shadow cursor-pointer hover:bg-gray-100"
-                            >
-                                <h3 className="text-lg font-bold">{diet.name || `Dieta ${index + 1}`}</h3>
-                                <p>{diet.description || 'Clique para visualizar e editar.'}</p>
-                                <button
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleDeleteDiet(index);
-                                    }}
-                                    className="text-red-500 hover:underline ml-4"
-                                >
-                                    Excluir
-                                </button>
-                            </div>
-                        ))}
-                    </div>
-
-                    <DietModal
-                        isOpen={isDietModalOpen}
-                        onClose={closeDietModal}
-                        onSave={handleSaveDiet}
-                        diet={selectedDietIndex !== null ? diets[selectedDietIndex] : null}
+                    <span>Selecione sua dieta</span>
+                    <DataTable
+                        label1={"Nome da dieta"}
+                        label4={"Ações"}
+                        data={diets}
                     />
-
-                    <FoodModal
-                        isOpen={isFoodModalOpen}
-                        onClose={closeFoodModal}
-                        onSave={handleSaveFoods}
-                        foods={
-                            selectedDietIndex !== null && diets[selectedDietIndex]
-                                ? diets[selectedDietIndex].foods
-                                : []
-                        }
-                    />
+                    <AddButton handleModal={openModal} />
+                    <DietModal isOpen={isModalOpen} onClose={closeModal} />
                 </div>
             </div>
         </AuthenticatedLayout>
