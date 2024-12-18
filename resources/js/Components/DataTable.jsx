@@ -1,7 +1,21 @@
 import React from 'react';
 import '../../css/H1.css';
 
-export default function DataTable({ label1, label4, data = [] }) {
+export default function DataTable({label1, label4, data = [] }) {
+    
+    const handleDelete = (id) => {
+        if (confirm('Você tem certeza que deseja deletar esta ficha?')) {
+            Inertia.delete(route('workout-sheets.destroy', id), {
+                onSuccess: () => alert('Ficha excluída com sucesso!'),
+                onError: (errors) => console.error(errors),
+            });
+        }
+    };
+
+    const handleView = (id) => {
+        Inertia.get(route('workout-sheets.show', id));
+    }
+
     return (
         <div className="relative overflow-x-auto">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -19,10 +33,18 @@ export default function DataTable({ label1, label4, data = [] }) {
                                     {sheet.name}
                                 </th>
                                 <td className="px-6 py-4">
-                                    <button className="text-blue-500 hover:underline">
+                                    <button className="text-blue-600 hover:underline"
+                                            onClick={() => handleView(sheet.id)}
+                                    >
                                         Visualizar
                                     </button>
+                                    <button className="text-red-600 hover:underline"
+                                            onClick={() => handleDelete(sheet.id)}
+                                    >
+                                        /Deletar
+                                    </button>
                                 </td>
+                                
                             </tr>
                         ))
                     ) : (

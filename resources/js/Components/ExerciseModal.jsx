@@ -48,16 +48,6 @@ export default function ExerciseModal({ isOpen, onClose }) {
         setFormFields(newFields);
     };
 
-    const getExerciseId = async (exerciseName) => {
-        try {
-            const response = await axios.get('/exercises/show', { params: { name: exerciseName } });
-            return response.data.id;  // Assuming the response has the exercise ID
-        } catch (error) {
-            console.error('Error fetching exercise ID:', error.response?.data || error.message);
-            return null;  // Return null if an error occurs
-        }
-    };
-
     const handleConfirm = async () => {
         console.log('Enviando ficha:', { name, exercises: formFields });
 

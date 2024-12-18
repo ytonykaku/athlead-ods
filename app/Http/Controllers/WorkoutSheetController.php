@@ -34,6 +34,14 @@ class WorkoutSheetController extends Controller{
         return inertia('WorkoutSheets/Create');
     }
 
+    public function show($id)
+    {
+        $workoutSheet = WorkoutSheet::with('exercises')->where('user_id', Auth::id())->findOrFail($id);
+
+        return Inertia::render('WorkoutSheets/Show', [
+            'workoutSheet' => $workoutSheet,
+        ]);
+    }
     /**
      * Salva uma nova ficha de treino no banco de dados.
      */
@@ -45,7 +53,7 @@ class WorkoutSheetController extends Controller{
         $request->validate([
             'name' => 'required|string|max:255',
             'exercises' => 'required|array',
-            'exercises.*.exercise' => 'required|exists:exercises,id',
+            'exercises.*.exercise' => 'required|string',
             'exercises.*.series' => 'required|integer',
             'exercises.*.reps' => 'required|integer',
             'exercises.*.weight' => 'required|numeric',
