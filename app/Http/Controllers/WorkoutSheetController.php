@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\WorkoutSheet;
 use App\Models\WorkoutSheetExercise;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -11,11 +12,10 @@ use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class WorkoutSheetController extends Controller
+class WorkoutSheetController extends Controller{
 
-{
-    public function index()
-    {
+    public function index(){
+
         $user = Auth::user();
 
         $workoutSheets = $user->workoutSheets()->get();
@@ -45,7 +45,7 @@ class WorkoutSheetController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'exercises' => 'required|array',
-            'exercises.*.exercise' => 'required|string',
+            'exercises.*.exercise' => 'required|exists:exercises,id',
             'exercises.*.series' => 'required|integer',
             'exercises.*.reps' => 'required|integer',
             'exercises.*.weight' => 'required|numeric',

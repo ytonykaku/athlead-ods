@@ -28,9 +28,9 @@ Route::get('/calendar', function () {
     return Inertia::render('Calendar');
 })->middleware(['auth', 'verified'])->name('calendar');
 
-Route::get('/exercises', function () {
-    return Inertia::render('Exercises');
-})->middleware(['auth', 'verified'])->name('exercises');
+// Route::get('/exercises', function () {
+//     return Inertia::render('Exercises');
+// })->middleware(['auth', 'verified'])->name('exercises');
 
 Route::get('/diet', function () {
     return Inertia::render('Diet');
@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
     //Route::resource('exercises', FoodController::class);
 
 });
+
 
 Route::get('/landingpage', function(){
     return Inertia::render('LandingPage', [
@@ -90,5 +91,6 @@ Route::get('/hireus', function(){
 })->name('hireus');
 
 Route::get('/exercises', [WorkoutSheetController::class, 'index'])->name('exercises');
+Route::get('/exercises/show', [ExerciseController::class, 'show'])->name('exercises.show');
 
 require __DIR__.'/auth.php';

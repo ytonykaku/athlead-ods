@@ -35,4 +35,5 @@ class WorkoutSheetExercise extends Model
     {
         return $this->belogsTo(Exercise::class);
     }
+    
 }

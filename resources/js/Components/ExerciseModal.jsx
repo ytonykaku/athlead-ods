@@ -1,11 +1,36 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { usePage } from '@inertiajs/react';
+import { useEffect } from 'react';
 
 export default function ExerciseModal({ isOpen, onClose }) {
     const [name, setName] = useState(''); // Novo estado para o nome da ficha
     const [formFields, setFormFields] = useState([
         { exercise: '', series: '', reps: '', weight: '' }
     ]);
+    const [exerciseOptions, setExerciseOptions] = useState([]);
+
+    //console.log(exerciseOptions);
+
+    useEffect(() => {
+        
+        if(isOpen){
+            fetchExercicesOptions();
+        }
+    }, [isOpen]);
+
+    const fetchExercicesOptions = async () => {
+        try {
+            const response = await axios.get('/exercises/show');
+            if (response.data && Array.isArray(response.data)) {
+                setExerciseOptions(response.data);
+            } else {
+                console.warn('A resposta não contém uma lista válida de exercícios:', response.data);
+            }
+        } catch (error) {
+            console.error('Erro ao buscar opções de exercícios:', error.response?.data || error.message);
+        }
+    };
 
     const addRow = () => {
         setFormFields([...formFields, { exercise: '', series: '', reps: '', weight: '' }]);
@@ -25,7 +50,7 @@ export default function ExerciseModal({ isOpen, onClose }) {
 
     const getExerciseId = async (exerciseName) => {
         try {
-            const response = await axios.get(`/exercises/id`, { params: { name: exerciseName } });
+            const response = await axios.get('/exercises/show', { params: { name: exerciseName } });
             return response.data.id;  // Assuming the response has the exercise ID
         } catch (error) {
             console.error('Error fetching exercise ID:', error.response?.data || error.message);
@@ -36,13 +61,11 @@ export default function ExerciseModal({ isOpen, onClose }) {
     const handleConfirm = async () => {
         console.log('Enviando ficha:', { name, exercises: formFields });
 
-        // First, map the exercises to get their IDs
-        const exercisesWithIds = await Promise.all(formFields.map(async (field) => {
-            const exerciseId = await getExerciseId(field.exercise);
-            if (exerciseId) {
-                return { exercise_id: exerciseId, sets: field.series, reps: field.reps, weight: field.weight };
-            }
-            return null; // Return null if the exercise ID is not found
+        const exercisesWithIds = formFields.map((field) => ({
+            exercise: field.exercise, // Este é o ID do exercício
+            series: field.series,
+            reps: field.reps,
+            weight: field.weight,
         }));
 
         // Filter out any null entries (in case some exercises failed to get an ID)
@@ -74,7 +97,7 @@ export default function ExerciseModal({ isOpen, onClose }) {
                     &times;
                 </button>
 
-                <h2 className="text-lg font-semibold text-gray-800 mb-4">Adicionar Exercício</h2>
+                <h2 className="text-lg font-semibold text-gray-800 mb-4">Adicionar Ficha</h2>
 
                 {/* Campo para Nome da Ficha */}
                 <div className="mb-4">
@@ -98,9 +121,10 @@ export default function ExerciseModal({ isOpen, onClose }) {
                                 required
                             >
                                 <option value="" disabled>Nome do Exercício</option>
-                                <option value="Supino">1</option>
-                                <option value="Agachamento">Agachamento</option>
-                                <option value="Rosca Direta">Rosca Direta</option>
+                                {exerciseOptions.map((exercise)=>(
+                                    <option key={exercise.id} value={exercise.id}>{exercise.name}</option>
+                                ))}
+
                             </select>
                             <input
                                 type="number"
