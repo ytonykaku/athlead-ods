@@ -10,8 +10,6 @@ export default function ExerciseModal({ isOpen, onClose }) {
     ]);
     const [exerciseOptions, setExerciseOptions] = useState([]);
 
-    //console.log(exerciseOptions);
-
     useEffect(() => {
         
         if(isOpen){

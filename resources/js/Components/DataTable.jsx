@@ -1,4 +1,5 @@
 import React from 'react';
+import { Inertia } from '@inertiajs/inertia';
 import '../../css/H1.css';
 
 export default function DataTable({label1, label4, data = [] }) {
