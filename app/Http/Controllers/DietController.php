@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Diet;
 use App\Models\DietMeal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class DietController extends Controller
 {
@@ -36,7 +38,7 @@ class DietController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'meals' => 'required|array',
-            'meals.*.food_id' => 'required|exists:foods,id',
+            'meals.*.food' => 'required|string',
             'meals.*.amount' => 'required|numeric|min:1',
             'meals.*.shift' => 'required|date_format:H:i',
         ]);
@@ -44,43 +46,44 @@ class DietController extends Controller
         // Cria a dieta
         $diet = Diet::create([
             'user_id' => auth()->id(),
-            'name' => $request->name,
+            'name' => $request->input('name'),
         ]);
 
         // Cria as refeições associadas à dieta
         foreach ($request->meals as $meal) {
-            DietMeal::create([
-                'diet_id' => $diet->id,
-                'food_id' => $meal['food_id'],
-                'amount' => $meal['amount'],
-                'shift' => $meal['shift'],
+            $meal->meal()->create([
+                'name' => $meal['food'],
+                'calories' => $meal['calories'],
+                'carbs' => $meal['carbs'],
+                'fat' => $meal['fat'],
+                'protein' => $meal['protein'],
+
             ]);
         }
 
-        return redirect()->route('diets.index')->with('success', 'Dieta criada com sucesso!');
+        return redirect()->json($meal, 201);
     }
-
     /**
      * Exibe uma dieta específica.
      */
-    public function show(Diet $diet)
+    public function show($id)
     {
-        $this->authorize('view', $diet);
+        $diet = Diet::with('meals')->where('user_id', Auth::id())->findOrFail($id);
 
         return Inertia::render('Diet/Show', [
-            'diet' => $diet->load('meals.food'),
+            'diet' => $diet,
         ]);
     }
 
     /**
      * Exibe o formulário de edição de uma dieta.
      */
-    public function edit(Diet $diet)
+    public function edit($id)
     {
-        $this->authorize('update', $diet);
+        $meal = Diet::where('user_id', Auth::id())->findOrFail($id);
 
-        return Inertia::render('Diet/Edit', [
-            'diet' => $diet->load('meals.food'),
+        return Inertia('Diet/Edit', [
+            'diet' => $meal,
         ]);
     }
 

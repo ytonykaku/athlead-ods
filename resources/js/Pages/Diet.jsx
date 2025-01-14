@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import AddButton from '@/Components/AddButton';
 import DietModal from '@/Components/DietModal';
-import DataTable from '@/Components/DataTable';
+import DataTableDiet from '@/Components/DataTableDiet';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, usePage } from '@inertiajs/react';
 
 export default function Diet() {
-    const { user, diets } = usePage().props;
+    const {user, diets } = usePage().props;
 
-    console.log(user);
+    console.log(diets);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -33,7 +33,7 @@ export default function Diet() {
             <div className="min-h-screen bg-gray-100 p-4">
                 <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
                     <span>Selecione sua dieta</span>
-                    <DataTable
+                    <DataTableDiet
                         label1={"Nome da dieta"}
                         label4={"Ações"}
                         data={diets}

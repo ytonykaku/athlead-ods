@@ -1,11 +1,29 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 export default function DietModal({ isOpen, onClose }) {
-    const [name, setName] = useState(''); // Novo estado para o nome da ficha
+    const [name, setName] = useState(''); // Novo estado para o nome da Dieta
     const [formFields, setFormFields] = useState([
         { meal: '', amount: '', shift: '' }
     ]);
+
+    const [mealOptions, setMealOptions] = useState([]);
+
+    useEffect(() => {    
+        if(isOpen){
+            fetchMealsOptions();
+        }
+    }, [isOpen]);
+
+    const fetchMealsOptions = async () => {
+        try {
+            const response = await axios.get('/foods');
+            setMealOptions(response.data);
+        } catch (error) {
+            console.error('Error fetching meals:', error.response?.data || error.message);
+        }
+    };
 
     const addRow = () => {
         setFormFields([...formFields, { meal: '', amount: '', shift: '' }]);
@@ -23,26 +41,24 @@ export default function DietModal({ isOpen, onClose }) {
         setFormFields(newFields);
     };
 
-    const getMealId = async (mealName) => {
-        try {
-            const response = await axios.get(`/meals/id`, { params: { name: mealName } });
-            return response.data.id;  // Assuming the response has the exercise ID
-        } catch (error) {
-            console.error('Error fetching exercise ID:', error.response?.data || error.message);
-            return null;  // Return null if an error occurs
-        }
-    };
+    // const getMealId = async (mealName) => {
+    //     try {
+    //         const response = await axios.get(`/meals/id`, { params: { name: mealName } });
+    //         return response.data.id;  // Assuming the response has the exercise ID
+    //     } catch (error) {
+    //         console.error('Error fetching exercise ID:', error.response?.data || error.message);
+    //         return null;  // Return null if an error occurs
+    //     }
+    // };
 
     const handleConfirm = async () => {
-        console.log('Enviando ficha:', { name, meals: formFields });
+        console.log('Enviando Dieta:', { name, meals: formFields });
 
         // First, map the exercises to get their IDs
-        const mealsWithIds = await Promise.all(formFields.map(async (field) => {
-            const mealId = await getMealId(field.meal);
-            if (mealId) {
-                return { meal_id: mealId, amount: field.amount, shift: field.shift };
-            }
-            return null; // Return null if the exercise ID is not found
+        const mealsWithIds = formFields.map((field) => ({
+            meal: field.meal, // Este é o ID do exercício
+            amount: field.amount,
+            shift: field.shift,
         }));
 
         // Filter out any null entries (in case some exercises failed to get an ID)
@@ -55,10 +71,10 @@ export default function DietModal({ isOpen, onClose }) {
                 meals: validMeals,  // Exercises with IDs
             });
 
-            console.log('Ficha criada com sucesso:', response.data);
+            console.log('Dieta criada com sucesso:', response.data);
             onClose(); // Close modal after success
         } catch (error) {
-            console.error('Erro ao criar ficha:', error.response?.data || error.message);
+            console.error('Erro ao criar Dieta:', error.response?.data || error.message);
         }
     };
 
@@ -76,11 +92,11 @@ export default function DietModal({ isOpen, onClose }) {
 
                 <h2 className="text-lg font-semibold text-gray-800 mb-4">Adicionar Refeição</h2>
 
-                {/* Campo para Nome da Ficha */}
+                {/* Campo para Nome da Dieta */}
                 <div className="mb-4">
                     <input
                         type="text"
-                        placeholder="Nome da Ficha"
+                        placeholder="Nome da Dieta"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         className="border-gray-300 rounded-lg p-2 w-full"
@@ -98,9 +114,10 @@ export default function DietModal({ isOpen, onClose }) {
                                 required
                             >
                                 <option value="" disabled>Nome da Refeição</option>
-                                <option value="Arroz">Arroz</option>
-                                <option value="Feijão">Feijão</option>
-                                <option value="Beterraba">Beterraba</option>
+                                {mealOptions.map((option) => (
+                                    <option key={option.id} value={option.id}>{option.name}</option>
+                                ))}
+                                
                             </select>
                             <input
                                 type="number"

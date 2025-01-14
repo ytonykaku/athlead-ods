@@ -38,6 +38,8 @@ class WorkoutSheetController extends Controller{
     {
         $workoutSheet = WorkoutSheet::with('exercises')->where('user_id', Auth::id())->findOrFail($id);
 
+        //dd($workoutSheet);
+
         return Inertia::render('WorkoutSheets/Show', [
             'workoutSheet' => $workoutSheet,
         ]);

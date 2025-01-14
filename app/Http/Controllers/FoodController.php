@@ -12,12 +12,19 @@ class FoodController extends Controller{
             'foods' => $foods
         ]);
     }
-    public function show($id){
+    public function show(Request $request){
         
-        $foods = Food::findOrFail($id);
-        return Inertia::render('Food/Show', [
-            'foods' => $foods
-        ]);
+        $name = $request->query('name')::findOrFail($id);
+        
+        $query = Food::select('id','name');
+
+        if ($name) {
+            $query->where('name', $name);
+        }
+
+        $foods = $query->get();
+
+        return response()->json($foods);
         
     }
     public function store(Request $request){
