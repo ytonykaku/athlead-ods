@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DietMeal extends Model
+class DietSheetMeal extends Model
 {
     use HasFactory;
 
@@ -13,7 +13,7 @@ class DietMeal extends Model
         'diet_id', // Relaciona com a dieta
         'food_id', // Relaciona com o alimento
         'amount',  // Quantidade
-        'shift',   // Horário
+        'shift'   // Horário
     ];
 
     public function diet()

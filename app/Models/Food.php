@@ -15,9 +15,11 @@ class Food extends Model{
         'fat',
         'protein',
     ];
+    /**
+     * Relacionamento: Um comida pode aparecer em várias dietas.
+     */
+    public function DietSheetMeal(){
 
-    public function DietMeal()
-    {
-        return $this->hasMany(DietMeal::class)
+        return $this->hasMany(DietSheetMeal::class);
     }
 }

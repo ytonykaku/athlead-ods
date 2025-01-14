@@ -9,8 +9,8 @@ use Inertia\Inertia;
 
 class ExerciseController extends Controller{
     
-    public function index()
-    {
+    public function index(){
+        
         // Fetch the authenticated user
         $user = Auth::user();
 

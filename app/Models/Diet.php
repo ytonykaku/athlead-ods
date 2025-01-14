@@ -21,6 +21,6 @@ class Diet extends Model
 
     public function meals()
     {
-        return $this->hasMany(DietMeal::class); // Relacionamento com as refeições
+        return $this->hasMany(DietSheetMeal::class); // Relacionamento com as refeições
     }
 }

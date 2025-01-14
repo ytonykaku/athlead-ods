@@ -1,21 +1,26 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Food;
-use Illuminate\Http\Request;
+
 use Inertia\Inertia;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;;
+
 class FoodController extends Controller{
     
     public function index(){
-        $foods = Food::all();
-        return Inertia::render('Food/Index', [
-            'foods' => $foods
+        $user = Auth::user();
+        
+        return Inertia::render('Food', [
+            'user' => $user
         ]);
     }
     public function show(Request $request){
         
-        $name = $request->query('name')::findOrFail($id);
-        
+        $name = $request->query('name');
         $query = Food::select('id','name');
 
         if ($name) {

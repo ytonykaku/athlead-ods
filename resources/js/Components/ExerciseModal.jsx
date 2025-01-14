@@ -152,7 +152,7 @@ export default function ExerciseModal({ isOpen, onClose }) {
                     onClick={addRow} 
                     className="text-blue-600 font-medium hover:underline mb-4"
                 >
-                    + Adicionar linha
+                    + Adicionar exercício
                 </button>
 
                 <div className="flex justify-end space-x-4">

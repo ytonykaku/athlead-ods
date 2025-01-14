@@ -10,7 +10,8 @@ export default function DietModal({ isOpen, onClose }) {
 
     const [mealOptions, setMealOptions] = useState([]);
 
-    useEffect(() => {    
+    useEffect(() => {   
+
         if(isOpen){
             fetchMealsOptions();
         }
@@ -18,8 +19,14 @@ export default function DietModal({ isOpen, onClose }) {
 
     const fetchMealsOptions = async () => {
         try {
-            const response = await axios.get('/foods');
-            setMealOptions(response.data);
+            const response = await axios.get('/foods/show');
+            
+            if (response.data && Array.isArray(response.data)) {
+                setMealOptions(response.data);
+            } else {            
+                console.warn('A resposta não contém uma lista válida de alimentos:', response.data);
+            }
+        
         } catch (error) {
             console.error('Error fetching meals:', error.response?.data || error.message);
         }
@@ -56,17 +63,19 @@ export default function DietModal({ isOpen, onClose }) {
 
         // First, map the exercises to get their IDs
         const mealsWithIds = formFields.map((field) => ({
-            meal: field.meal, // Este é o ID do exercício
+            food: field.meal, // Este é o ID do exercício
             amount: field.amount,
             shift: field.shift,
         }));
+
+        console.log('Refeições com IDs:', mealsWithIds);
 
         // Filter out any null entries (in case some exercises failed to get an ID)
         const validMeals = mealsWithIds.filter(item => item !== null);
 
         // Now send the workout sheet with exercises and their IDs
         try {
-            const response = await axios.post('/diets', {
+            const response = await axios.post('/diet', {
                 name, // Workout sheet name
                 meals: validMeals,  // Exercises with IDs
             });
@@ -90,7 +99,7 @@ export default function DietModal({ isOpen, onClose }) {
                     &times;
                 </button>
 
-                <h2 className="text-lg font-semibold text-gray-800 mb-4">Adicionar Refeição</h2>
+                <h2 className="text-lg font-semibold text-gray-800 mb-4">Criar Dieta</h2>
 
                 {/* Campo para Nome da Dieta */}
                 <div className="mb-4">
@@ -149,7 +158,7 @@ export default function DietModal({ isOpen, onClose }) {
                     onClick={addRow} 
                     className="text-blue-600 font-medium hover:underline mb-4"
                 >
-                    + Adicionar linha
+                    + Adicionar refeição
                 </button>
 
                 <div className="flex justify-end space-x-4">

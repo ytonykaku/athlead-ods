@@ -17,7 +17,6 @@ class WorkoutSheetController extends Controller{
     public function index(){
 
         $user = Auth::user();
-
         $workoutSheets = $user->workoutSheets()->get();
 
         return Inertia::render('Exercises', [
