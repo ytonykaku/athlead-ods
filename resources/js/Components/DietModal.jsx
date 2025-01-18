@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 export default function DietModal({ isOpen, onClose }) {
     const [name, setName] = useState(''); // Novo estado para o nome da Dieta
     const [formFields, setFormFields] = useState([
-        { meal: '', amount: '', shift: '' }
+        { food: '', amount: '', shift: '' }
     ]);
 
     const [mealOptions, setMealOptions] = useState([]);
@@ -33,7 +33,7 @@ export default function DietModal({ isOpen, onClose }) {
     };
 
     const addRow = () => {
-        setFormFields([...formFields, { meal: '', amount: '', shift: '' }]);
+        setFormFields([...formFields, { food: '', amount: '', shift: '' }]);
     };
 
     const removeRow = (index) => {
@@ -59,11 +59,11 @@ export default function DietModal({ isOpen, onClose }) {
     // };
 
     const handleConfirm = async () => {
-        console.log('Enviando Dieta:', { name, meals: formFields });
+        console.log('Enviando Dieta:', { name, food: formFields });
 
         // First, map the exercises to get their IDs
         const mealsWithIds = formFields.map((field) => ({
-            food: field.meal, // Este é o ID do exercício
+            food: field.food, // Este é o ID do exercício
             amount: field.amount,
             shift: field.shift,
         }));

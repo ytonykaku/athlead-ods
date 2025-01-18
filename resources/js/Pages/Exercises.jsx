@@ -8,8 +8,8 @@ import { Head, usePage } from '@inertiajs/react';
 export default function Exercises() {
     const { user, workoutSheets } = usePage().props;
 
-    //console.log(user);
-    console.log(workoutSheets);
+    console.log(user);
+    //console.log(workoutSheets);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 

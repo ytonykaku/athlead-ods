@@ -34,9 +34,9 @@ Route::get('/calendar', function () {
 //     return Inertia::render('Exercises');
 // })->middleware(['auth', 'verified'])->name('exercises');
 
-Route::get('/diet', function () {
-    return Inertia::render('Diet');
-})->middleware(['auth', 'verified'])->name('diet');
+// Route::get('/diet', function () {
+//     return Inertia::render('Diet');
+// })->middleware(['auth', 'verified'])->name('diet');
 
 /* Route::get('/communities', function () {
     return Inertia::render('Communities');
@@ -48,10 +48,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
    
     Route::resource('workout-sheets', WorkoutSheetController::class);
+    Route::resource('diet', DietController::class);
     
     //Route::get('/diet', [DietController::class, 'index'])->name('diets');
     // Route::resource('foods', FoodController::class);
-   // Route::resource('diet', DietController::class);
    
     
 });
@@ -94,7 +94,10 @@ Route::get('/hireus', function(){
 })->name('hireus');
 
 Route::get('/exercises', [WorkoutSheetController::class, 'index'])->name('exercises');
-    Route::get('/exercises/show', [ExerciseController::class, 'show'])->name('exercises.show');
+Route::get('/diet', [DietController::class, 'index'])->name('diet');
+
+
+Route::get('/exercises/show', [ExerciseController::class, 'show'])->name('exercises.show');
 
     Route::get('/foods/show', [FoodController::class, 'show'])->name('foods.show');
 

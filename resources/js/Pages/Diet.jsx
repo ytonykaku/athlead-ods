@@ -8,6 +8,7 @@ import { Head, usePage } from '@inertiajs/react';
 export default function Diet() {
     const {user, diets } = usePage().props;
 
+    console.log(user);
     console.log(diets);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
