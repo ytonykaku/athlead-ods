@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
    
     Route::resource('workout-sheets', WorkoutSheetController::class);
-    Route::resource('diet', DietController::class);
+    Route::resource('diets', DietController::class);
     
     //Route::get('/diet', [DietController::class, 'index'])->name('diets');
     // Route::resource('foods', FoodController::class);
@@ -98,8 +98,7 @@ Route::get('/diet', [DietController::class, 'index'])->name('diet');
 
 
 Route::get('/exercises/show', [ExerciseController::class, 'show'])->name('exercises.show');
-
-    Route::get('/foods/show', [FoodController::class, 'show'])->name('foods.show');
+Route::get('/foods/show', [FoodController::class, 'show'])->name('foods.show');
 
 
 require __DIR__.'/auth.php';

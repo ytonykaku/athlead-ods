@@ -117,8 +117,8 @@ export default function DietModal({ isOpen, onClose }) {
                     {formFields.map((field, index) => (
                         <div key={index} className="flex space-x-4 mb-4 items-center">
                             <select
-                                value={field.meal}
-                                onChange={(e) => handleChange(index, 'meal', e.target.value)}
+                                value={field.food}
+                                onChange={(e) => handleChange(index, 'food', e.target.value)}
                                 className="border-gray-300 rounded-lg p-2 w-1/3"
                                 required
                             >

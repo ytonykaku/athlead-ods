@@ -23,7 +23,7 @@ class DietController extends Controller
 
         return Inertia::render('Diet', [
             'user' => $user,
-            'diet' => $diets,
+            'diets' => $diets,
         ]);
     }
 
@@ -49,14 +49,14 @@ class DietController extends Controller
         ]);
 
         // Cria a dieta
-        $meal = Diet::create([
+        $mealSheet = Diet::create([
             'user_id' => auth()->id(),
             'name' => $request->input('name'),
         ]);
 
         // Cria as refeições associadas à dieta
         foreach ($request->meals as $meal) {
-            $meal->meals()->create([
+            $mealSheet->meals()->create([
                 'food_id' => $meal['food'],
                 'amount' => $meal['amount'],
                 'shift' => $meal['shift'],

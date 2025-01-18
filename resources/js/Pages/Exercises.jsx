@@ -9,7 +9,7 @@ export default function Exercises() {
     const { user, workoutSheets } = usePage().props;
 
     console.log(user);
-    //console.log(workoutSheets);
+    console.log(workoutSheets);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 

@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('diet_sheet_meal', function (Blueprint $table) {
+        Schema::create('diet_sheet_meals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('diet_id')->constrained()->cascadeOnDelete();
             $table->foreignId('food_id')->constrained()->cascadeOnDelete();
             $table->integer('amount');
+            $table->time('shift')->nullable();
             $table->timestamps();
         });
     }
