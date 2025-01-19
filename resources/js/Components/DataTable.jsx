@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
+import WorkoutSheetShow from './WorkoutSheetShow';
 import '../../css/H1.css';
 
 export default function DataTable({label1, label4, data = [] }) {
     
+    const [selectedSheet, setSelectedSheet] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    
+    const openModal = (sheetId) => {
+        setSelectedSheet(sheetId);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => { 
+        setIsModalOpen(false);
+        setSelectedSheet(null);
+    };
+
     const handleDelete = (id) => {
         if (confirm('Você tem certeza que deseja deletar esta ficha?')) {
             Inertia.delete(route('workout-sheets.destroy', id), {
@@ -13,9 +27,9 @@ export default function DataTable({label1, label4, data = [] }) {
         }
     };
 
-    const handleView = (id) => {
-        Inertia.get(route('workout-sheets.show', id));
-    }
+    // const handleView = (id) => {
+    //     Inertia.get(route('workout-sheets.show', id));
+    // }
 
     return (
         <div className="relative overflow-x-auto">
@@ -35,8 +49,9 @@ export default function DataTable({label1, label4, data = [] }) {
                                 </th>
                                 <td className="px-6 py-4">
                                     <button className="text-blue-600 hover:underline"
-                                            onClick={() => handleView(sheet.id)}
-                                    >
+                                            onClick={() => openModal(sheet.id)}
+                                            >
+                                        
                                         Visualizar
                                     </button>
                                     <button className="text-red-600 hover:underline"
@@ -57,6 +72,13 @@ export default function DataTable({label1, label4, data = [] }) {
                     )}
                 </tbody>
             </table>
+            {isModalOpen && (
+                <WorkoutSheetShow
+                    isOpen={isModalOpen}
+                    onClose={closeModal}
+                    sheetId={selectedSheet}
+                />
+            )}
         </div>
     );
 }
