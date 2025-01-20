@@ -20,7 +20,15 @@ export default function WorkoutSheetShow({ isOpen, onClose, sheetId }) {
         try {
             const response = await axios.get(`/workout-sheets/${id}`);
             setSheet(response.data); // Preencher a ficha
-            setFormFields(response.data.exercises || []); // Preencher os exercícios
+            setFormFields(
+                response.data.exercises.map((exercise) =>({
+                    exercise: exercise.exercise_id,
+                    series: exercise.sets,
+                    reps: exercise.repetitions,
+                    weight: exercise.workload,
+                }))
+            
+            ); // Preencher os exercícios
         } catch (error) {
             console.error('Erro ao buscar a ficha:', error.response?.data || error.message);
         }
