@@ -61,16 +61,24 @@ export default function WorkoutSheetShow({ isOpen, onClose, sheetId }) {
 
     const handleSave = async () => {
         try {
+            // Converte todos os IDs do campo 'exercise' em strings
+            const updatedFormFields = formFields.map((field) => ({
+                ...field,
+                exercise: String(field.exercise),
+            }));
+    
             await axios.put(`/workout-sheets/${sheetId}`, {
                 name: sheet.name,
-                exercises: formFields,
+                exercises: updatedFormFields,
             });
+    
             alert('Ficha atualizada com sucesso!');
             onClose();
         } catch (error) {
             console.error('Erro ao salvar a ficha:', error.response?.data || error.message);
         }
     };
+    
 
     if (!isOpen) return null;
 
