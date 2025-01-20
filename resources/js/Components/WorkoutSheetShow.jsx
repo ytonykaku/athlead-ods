@@ -4,13 +4,15 @@ import axios from 'axios';
 export default function WorkoutSheetShow({ isOpen, onClose, sheetId }) {
     const [sheet, setSheet] = useState(null);
     const [formFields, setFormFields] = useState([]);
+    const [exerciseOptions, setExerciseOptions] = useState([]);
 
     console.log(sheetId);
     console.log(sheet);
-    
+
     useEffect(() => {
         if (isOpen && sheetId) {
             fetchSheetData(sheetId); // Buscar a ficha ao abrir o modal
+            fetchExerciseOptions();
         }
     }, [isOpen, sheetId]);
 
@@ -21,6 +23,15 @@ export default function WorkoutSheetShow({ isOpen, onClose, sheetId }) {
             setFormFields(response.data.exercises || []); // Preencher os exercícios
         } catch (error) {
             console.error('Erro ao buscar a ficha:', error.response?.data || error.message);
+        }
+    };
+
+    const fetchExerciseOptions = async () => {
+        try {
+            const response = await axios.get('/exercises/show');
+            setExerciseOptions(response.data || []);
+        } catch (error) {
+            console.error('Erro ao buscar exercícios:', error.response?.data || error.message);
         }
     };
 
@@ -69,7 +80,7 @@ export default function WorkoutSheetShow({ isOpen, onClose, sheetId }) {
                     <>
                         {/* Nome da Ficha */}
                         <h2 className="text-lg font-semibold text-gray-800 mb-4">
-                            Editar Ficha: {sheet.name}
+                            Ficha: {sheet.name}
                         </h2>
                         <input
                             type="text"
@@ -82,13 +93,19 @@ export default function WorkoutSheetShow({ isOpen, onClose, sheetId }) {
                         <div>
                             {formFields.map((field, index) => (
                                 <div key={index} className="flex space-x-4 mb-4 items-center">
-                                    <input
-                                        type="text"
-                                        placeholder="Exercício"
-                                        value={field.exercise}
-                                        onChange={(e) => handleFieldChange(index, 'exercise', e.target.value)}
-                                        className="border-gray-300 rounded-lg p-2 w-1/3"
-                                    />
+                                <select
+                                    value={field.exercise}
+                                    onChange={(e) => handleFieldChange(index, 'exercise', e.target.value)}
+                                    className="border-gray-300 rounded-lg p-2 w-1/3"
+                                >
+                                <option value="" disabled>Selecione o Exercício</option>
+                                    {exerciseOptions.map((exercise) => (
+                                        <option key={exercise.id} value={exercise.id}>
+                                            {exercise.name}
+                                        </option>
+                                    ))}
+                                    </select>
+                                    
                                     <input
                                         type="number"
                                         placeholder="Séries"
