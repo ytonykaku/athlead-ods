@@ -19,8 +19,6 @@ class DietController extends Controller
         $user = Auth::user();
         $diets = $user->diet()->get();
 
-        //$diets = Diet::where('user_id', $user()->id)->get();
-
         return Inertia::render('Diet', [
             'user' => $user,
             'diets' => $diets,
@@ -60,12 +58,10 @@ class DietController extends Controller
                 'food_id' => $meal['food'],
                 'amount' => $meal['amount'],
                 'shift' => $meal['shift'],
-                
-
             ]);
         }
 
-        return response()->json($meal, 201);
+        return response()->json($mealSheet, 201);
     }
     /**
      * Exibe uma dieta específica.
@@ -74,9 +70,7 @@ class DietController extends Controller
     {
         $diet = Diet::with('meals')->where('user_id', Auth::id())->findOrFail($id);
 
-        return Inertia::render('Diet/Show', [
-            'diet' => $diet,
-        ]);
+        return response()->json($diet); // Adicionado retorno JSON
     }
 
     /**
@@ -94,35 +88,30 @@ class DietController extends Controller
     /**
      * Atualiza uma dieta existente.
      */
-    public function update(Request $request, Diet $diet)
-    {
-        $this->authorize('update', $diet);
+    public function update(Request $request, $id)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'meals' => 'required|array',
+        'meals.*.food' => 'required|string',
+        'meals.*.amount' => 'required|numeric|min:1',
+        'meals.*.shift' => 'required|date_format:H:i',
+    ]);
+    
+    $diet = Diet::where('user_id', Auth::id())->findOrFail($id);
+    $diet->update(['name' => $request->name]);
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'meals' => 'required|array',
-            'meals.*.food_id' => 'required|exists:foods,id',
-            'meals.*.amount' => 'required|numeric|min:1',
-            'meals.*.shift' => 'required|date_format:H:i',
+    // Atualizar refeições associadas
+    $diet->meals()->delete();
+    foreach ($request->input('meals') as $meal) {
+        $diet->meals()->create([
+            'food_id' => $meal['food'],
+            'amount' => $meal['amount'],
+            'shift' => $meal['shift'],
         ]);
+    }
 
-        // Atualiza a dieta
-        $diet->update([
-            'name' => $request->name,
-        ]);
-
-        // Remove refeições antigas e recria
-        $diet->meals()->delete();
-        foreach ($request->meals as $meal) {
-            DietMeal::create([
-                'diet_id' => $diet->id,
-                'food_id' => $meal['food_id'],
-                'amount' => $meal['amount'],
-                'shift' => $meal['shift'],
-            ]);
-        }
-
-        return redirect()->route('diets.index')->with('success', 'Dieta atualizada com sucesso!');
+        return response()->json(['message' => 'Dieta atualizada com sucesso!']);
     }
 
     /**
