@@ -1,15 +1,17 @@
 <?php
 
+use Inertia\Inertia;
+
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DietController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\WorkoutSheetController;
-use App\Models\Food;
+use App\Http\Controllers\AdminController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -33,6 +35,8 @@ Route::middleware('auth')->group(function () {
    
     Route::resource('workout-sheets', WorkoutSheetController::class);
     Route::resource('diets', DietController::class);
+
+    Route::get('/admin', [AdminController::class, 'index'])->middleware('is-admin')->name('admin');
     
 });
 

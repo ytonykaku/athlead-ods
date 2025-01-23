@@ -11456,3 +11456,37 @@ Did you mean one of these?
 #62 /home/savio_francisco/Documents/10º_Período_UFSJ/ods/athlead-ods/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('/home/savio_fra...')
 #63 {main}
 "} 
+[2025-01-23 12:49:53] local.ERROR: Command "fresh" is not defined.
+
+Did you mean one of these?
+    migrate:fresh
+    migrate:refresh {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"fresh\" is not defined.
+
+Did you mean one of these?
+    migrate:fresh
+    migrate:refresh at /home/savio_francisco/Documents/10º_Período_UFSJ/ods/athlead-ods/vendor/symfony/console/Application.php:702)
+[stacktrace]
+#0 /home/savio_francisco/Documents/10º_Período_UFSJ/ods/athlead-ods/vendor/symfony/console/Application.php(258): Symfony\\Component\\Console\\Application->find('fresh')
+#1 /home/savio_francisco/Documents/10º_Período_UFSJ/ods/athlead-ods/vendor/symfony/console/Application.php(167): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 /home/savio_francisco/Documents/10º_Período_UFSJ/ods/athlead-ods/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(197): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /home/savio_francisco/Documents/10º_Período_UFSJ/ods/athlead-ods/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /home/savio_francisco/Documents/10º_Período_UFSJ/ods/athlead-ods/artisan(13): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))
+#5 {main}
+"} 
+[2025-01-23 12:50:05] local.ERROR: Command "fresh" is not defined.
+
+Did you mean one of these?
+    migrate:fresh
+    migrate:refresh {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"fresh\" is not defined.
+
+Did you mean one of these?
+    migrate:fresh
+    migrate:refresh at /home/savio_francisco/Documents/10º_Período_UFSJ/ods/athlead-ods/vendor/symfony/console/Application.php:702)
+[stacktrace]
+#0 /home/savio_francisco/Documents/10º_Período_UFSJ/ods/athlead-ods/vendor/symfony/console/Application.php(258): Symfony\\Component\\Console\\Application->find('fresh')
+#1 /home/savio_francisco/Documents/10º_Período_UFSJ/ods/athlead-ods/vendor/symfony/console/Application.php(167): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 /home/savio_francisco/Documents/10º_Período_UFSJ/ods/athlead-ods/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(197): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /home/savio_francisco/Documents/10º_Período_UFSJ/ods/athlead-ods/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /home/savio_francisco/Documents/10º_Período_UFSJ/ods/athlead-ods/artisan(13): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))
+#5 {main}
+"} 
