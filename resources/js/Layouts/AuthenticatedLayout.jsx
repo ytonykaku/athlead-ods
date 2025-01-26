@@ -47,6 +47,15 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dieta
                                 </NavLink>
+
+                                {user.is_admin && (
+                                    <NavLink
+                                        href={route('admin')}
+                                        active={route().current('admin')}
+                                    >
+                                        Admin
+                                    </NavLink>
+                                )}
                             </div>
                         </div>
 
