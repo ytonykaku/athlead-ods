@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-export default function FoodModal({ isOpen, onClose, onSave, foods }) {
-    const [foodList, setFoodList] = useState([]);
-
-    useEffect(() => {
-        setFoodList(foods || []);
-    }, [foods]);
+export default function FoodModal({ isOpen, onClose}) {
+    const [name, setName] = useState('');
+    const [foodList, setFoodList] = useState([
+        { name: '', calories: '', carbs: '', proteins: '', fats: '' }
+    ]);
 
     const addFood = () => {
-        setFoodList([...foodList, { name: '', quantity: '' }]);
+        setFoodList([...foodList, { name: '', calories: '', carbs: '', proteins: '', fats: '' }]);
+    };
+
+    const removeFood = (index) => {
+        const newList = [...foodList];
+        newList.splice(index, 1);
+        setFoodList(newList);
     };
 
     const handleChange = (index, field, value) => {
@@ -17,8 +23,33 @@ export default function FoodModal({ isOpen, onClose, onSave, foods }) {
         setFoodList(newList);
     };
 
-    const handleConfirm = () => {
-        onSave(foodList);
+    const handleConfirm = async () => {
+        console.log('Enviando dados:',{food: name, foods :foodList});
+
+        const foodWithId = foodList.map((food) => ({ 
+            name: food.name,
+            calories: food.calories,
+            carbs: food.carbs,
+            proteins: food.proteins,
+            fats: food.fats
+        }));
+
+        console.log('Comidas IDs:', foodWithId);
+
+        const validFoods = foodWithId.filter(item => item !== null);
+
+        try {
+            const response = await axios.post('/foods', { 
+                food: name,
+                foods: validFoods
+            });
+
+            console.log('Comida cadastrada com sucesso:', response.data);
+            onClose();
+        }
+        catch (error) {
+            console.error('Erro ao enviar dados:', error.response?.data || error.message);
+        }
     };
 
     if (!isOpen) return null;
@@ -41,19 +72,49 @@ export default function FoodModal({ isOpen, onClose, onSave, foods }) {
                             <input
                                 type="text"
                                 placeholder="Nome do alimento"
-                                value={food.name}
-                                onChange={(e) => handleChange(index, 'name', e.target.value)}
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                                 className="border-gray-300 rounded-lg p-2 w-1/2"
                                 required
                             />
                             <input
                                 type="number"
-                                placeholder="Quantidade"
-                                value={food.quantity}
+                                placeholder="Calorias"
+                                value={food.calories}
                                 onChange={(e) => handleChange(index, 'quantity', e.target.value)}
                                 className="border-gray-300 rounded-lg p-2 w-1/3"
                                 required
                             />
+                            <input
+                                type="number"
+                                placeholder="Carboidratos"
+                                value={food.carbs}
+                                onChange={(e) => handleChange(index, 'quantity', e.target.value)}
+                                className="border-gray-300 rounded-lg p-2 w-1/3"
+                                required
+                            />
+                            <input
+                                type="number"
+                                placeholder="Proteínas"
+                                value={food.proteins}
+                                onChange={(e) => handleChange(index, 'quantity', e.target.value)}
+                                className="border-gray-300 rounded-lg p-2 w-1/3"
+                                required
+                            />
+                            <input
+                                type="number"
+                                placeholder="Gorduras"
+                                value={food.fats}
+                                onChange={(e) => handleChange(index, 'quantity', e.target.value)}
+                                className="border-gray-300 rounded-lg p-2 w-1/3"
+                                required
+                            />
+                            <button
+                                onClick={() => removeFood(index)}
+                                className="text-red-600 font-medium hover:underline"
+                            >
+                                Remover
+                            </button>
                         </div>
                     ))}
                 </div>

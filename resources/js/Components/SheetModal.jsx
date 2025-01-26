@@ -3,11 +3,13 @@ import axios from 'axios';
 import { usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 
-export default function ExerciseModal({ isOpen, onClose }) {
+export default function SheetModal({ isOpen, onClose }) {
+    
     const [name, setName] = useState(''); // Novo estado para o nome da ficha
     const [formFields, setFormFields] = useState([
         { exercise: '', series: '', reps: '', weight: '' }
     ]);
+    
     const [exerciseOptions, setExerciseOptions] = useState([]);
 
     useEffect(() => {

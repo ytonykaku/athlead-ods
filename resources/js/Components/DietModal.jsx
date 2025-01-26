@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useEffect } from 'react';
 
 export default function DietModal({ isOpen, onClose }) {
     const [name, setName] = useState(''); // Novo estado para o nome da Dieta

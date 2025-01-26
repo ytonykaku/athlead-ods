@@ -9,9 +9,8 @@ class AdminController extends Controller
 {
     public function index(Request $request){
 
-        return Inertia::render('Profile/Edit', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => session('status'),
+        return Inertia::render('Admin', [
+        
         ]);
     }
 }

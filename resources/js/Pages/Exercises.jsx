@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import AddButton from '@/Components/AddButton';
-import ExerciseModal from '@/Components/ExerciseModal';
-import DataTable from '@/Components/DataTable';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, usePage } from '@inertiajs/react';
+
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+
+import AddButton from '@/Components/AddButton';
+import SheetModal from '@/Components/SheetModal';
+import DataTable from '@/Components/DataTable';
 
 export default function Exercises() {
     const { user, workoutSheets } = usePage().props;
@@ -20,7 +22,6 @@ export default function Exercises() {
     const closeModal = () => { 
         setIsModalOpen(false);
     };
-
 
     return (
         <AuthenticatedLayout
@@ -41,7 +42,7 @@ export default function Exercises() {
                         data={workoutSheets}
                     />
                     <AddButton handleModal={openModal} />
-                    <ExerciseModal isOpen={isModalOpen} onClose={closeModal} />
+                    <SheetModal isOpen={isModalOpen} onClose={closeModal} />
                 </div>
             </div>
         </AuthenticatedLayout>

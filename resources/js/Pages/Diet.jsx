@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { Head, usePage } from '@inertiajs/react';
+
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+
 import AddButton from '@/Components/AddButton';
 import DietModal from '@/Components/DietModal';
 import DataTableDiet from '@/Components/DataTableDiet';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, usePage } from '@inertiajs/react';
 
 export default function Diet() {
     const {user, diets } = usePage().props;
