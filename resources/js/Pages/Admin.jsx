@@ -10,9 +10,11 @@ import FoodModal from '@/Components/FoodModal';
 
 export default function Admin() {
 
-    const {users} = usePage().props;
+    const {user, foods, exercies} = usePage().props;
 
-    console.log(users);
+    console.log(user);
+    console.log(foods);
+    console.log(exercies);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     
@@ -40,7 +42,7 @@ export default function Admin() {
                     <ExerciseTable
                         label1={"Nome do exercício"}
                         label4={"Ações"}
-                        data={users}
+                        data={exercies}
                     />
                     <AddButton handleModal={openModal}/>
 
@@ -51,7 +53,7 @@ export default function Admin() {
                     <FoodTable
                         label1={"Nome do alimento"}
                         label4={"Ações"}
-                        data={users}
+                        data={foods}
                     />
                     <AddButton handleModal={openModal}/>
                     <FoodModal isOpen={isModalOpen} onClose={closeModal} />

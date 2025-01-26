@@ -14,7 +14,7 @@ class FoodController extends Controller{
     public function index(){
         $user = Auth::user();
         
-        return Inertia::render('Food', [
+        return Inertia::render('Foods', [
             'user' => $user
         ]);
     }
