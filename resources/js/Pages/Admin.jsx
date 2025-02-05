@@ -5,6 +5,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 import AddButton from '@/Components/AddButton';
 import ExerciseTable from '@/Components/ExerciseTable';
+import ExerciseModal from '@/Components/ExerciseModal';
 import FoodTable from '@/Components/FoodTable';
 import FoodModal from '@/Components/FoodModal';
 
@@ -16,14 +17,23 @@ export default function Admin() {
     console.log(foods);
     console.log(exercises);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    
-    const openModal = () => {
-        setIsModalOpen(true);
+    const [isExerciseModalOpen, setIsExerciseModalOpen] = useState(false);
+    const [isFoodModalOpen, setIsFoodModalOpen] = useState(false);
+
+    const openExerciseModal = () => {
+        setIsExerciseModalOpen(true);
     };
 
-    const closeModal = () => {
-        setIsModalOpen(false);
+    const closeExerciseModal = () => {
+        setIsExerciseModalOpen(false);
+    };
+
+    const openFoodModal = () => {
+        setIsFoodModalOpen(true);
+    };
+
+    const closeFoodModal = () => {
+        setIsFoodModalOpen(false);
     };
     
     return (
@@ -44,7 +54,8 @@ export default function Admin() {
                         label4={"Ações"}
                         data={exercises}
                     />
-                    <AddButton handleModal={openModal}/>
+                    <AddButton handleModal={openExerciseModal} />
+                    <ExerciseModal isOpen={isExerciseModalOpen} onClose={closeExerciseModal} />
 
                 </div>
 
@@ -55,8 +66,8 @@ export default function Admin() {
                         label4={"Ações"}
                         data={foods}
                     />
-                    <AddButton handleModal={openModal}/>
-                    <FoodModal isOpen={isModalOpen} onClose={closeModal} />
+                    <AddButton handleModal={openFoodModal} />
+                    <FoodModal isOpen={isFoodModalOpen} onClose={closeFoodModal} />
                 </div>                
             </div>
         </AuthenticatedLayout>
