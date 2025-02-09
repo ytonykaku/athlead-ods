@@ -2,67 +2,60 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Calendar;
+use App\Models\WorkoutSheet;
 
-class CalendarController extends Controller
-{
-    public function index()
-    {
-        $calendars = Calendar::all();
-        return view('calendar.index', compact('calendars'));
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
+use Inertia\Inertia;
+class CalendarController extends Controller{
+
+    public function index(){
+
+        $user = Auth::user();
+        $workoutSheets = $user->workoutSheets()->get();
+        $diets = $user->diet()->get();
+
+        Log::info('WorkoutSheets:', ['workoutSheets' => $workoutSheets]);
+        
+        return Inertia::render('Calendar',[
+            'user' => $user,
+            'workoutSheets' => $workoutSheets,
+            'diets' => $diets,
+        ]);
     }
 
-    public function create()
-    {
-        return view('calendar.create');
-    }
-
-    public function store(Request $request)
-    {
+    
+    public function store(Request $request){
+        
         $request->validate([
-            'title' => 'required|string|max:255',
-            'start' => 'required|date',
-            'end' => 'required|date',
+            'date' => 'required|date',
+            'workout_sheet_id' => 'nullable|exists:workout_sheets,id',
+            'diet_id' => 'nullable|exists:diets,id',
         ]);
 
-        $calendar = new Calendar();
-        $calendar->title = $request->title;
-        $calendar->start = $request->start;
-        $calendar->end = $request->end;
-        $calendar->save();
+        $user = Auth::user();
 
-        return redirect()->route('calendar.index');
-    }
-
-    public function edit($id)
-    {
-        $calendar = Calendar::find($id);
-        return view('calendar.edit', compact('calendar'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'start' => 'required|date',
-            'end' => 'required|date',
+        $calendar = Calendar::create([
+            'user_id' => $user->id,
+            'date' => $request->date,
+            'workout_sheet_id' => $request->workout_sheet_id,
+            'diet_id' => $request->diet_id
         ]);
 
-        $calendar = Calendar::find($id);
-        $calendar->title = $request->title;
-        $calendar->start = $request->start;
-        $calendar->end = $request->end;
-        $calendar->save();
-
-        return redirect()->route('calendar.index');
+        return response()->json(['success' => true, 'calendar' => $calendar]);
     }
 
-    public function destroy($id)
-    {
-        $calendar = Calendar::find($id);
-        $calendar->delete();
+    public function getEntries(Request $request){
+        $user = Auth::user();
+        $entries = Calendar::where('user_id', $user->id)
+            ->whereMonth('date', $request->month)
+            ->whereYear('date', $request->year)
+            ->get();
 
-        return redirect()->route('calendar.index');
+        return response()->json(['entries' => $entries]);
     }
+
 }

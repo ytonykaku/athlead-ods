@@ -45,6 +45,7 @@ export default function Exercises() {
                     <SheetModal isOpen={isModalOpen} onClose={closeModal} />
                 </div>
             </div>
+        
         </AuthenticatedLayout>
     );
 }

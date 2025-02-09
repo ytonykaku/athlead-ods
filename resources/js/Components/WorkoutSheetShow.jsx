@@ -18,7 +18,7 @@ export default function WorkoutSheetShow({ isOpen, onClose, sheetId }) {
 
     const fetchSheetData = async (id) => {
         try {
-            const response = await axios.get(`/workout-sheets/${id}`);
+            const response = await axios.get(`/workout-sheets/${id}/edit`);
             setSheet(response.data); // Preencher a ficha
             setFormFields(
                 response.data.exercises.map((exercise) =>({

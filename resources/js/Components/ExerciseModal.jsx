@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export default function ExerciseModal({ isOpen, onClose}) {
+export default function ExerciseModal({isOpen, onClose}) {
     const [name, setName] = useState('');
     const [exerciseList, setExerciseList] = useState([
         { name: ''}

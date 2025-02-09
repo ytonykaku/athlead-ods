@@ -9,7 +9,7 @@ use App\Http\Controllers\DietController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\WorkoutSheetController;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\CalendarController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
@@ -24,9 +24,9 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/calendar', function () {
-    return Inertia::render('Calendar');
-})->middleware(['auth', 'verified'])->name('calendar');
+// Route::get('/calendar', function () {
+//     return Inertia::render('Calendar');
+// })->middleware(['auth', 'verified'])->name('calendar');
 
 Route::middleware('auth')->group(function () {
 
@@ -36,6 +36,10 @@ Route::middleware('auth')->group(function () {
    
     Route::resource('workout-sheets', WorkoutSheetController::class);
     Route::resource('diets', DietController::class);
+    Route::resource('calendar', CalendarController::class);
+
+    Route::post('/calendar/getEntries', [CalendarController::class, 'getEntries'])->name('calendar.getEntries');
+ 
 
     Route::get('/admin', [AdminController::class, 'index'])->middleware('is-admin')->name('admin');
     
@@ -79,6 +83,7 @@ Route::get('/hireus', function(){
 
 Route::get('/exercises', [WorkoutSheetController::class, 'index'])->name('exercises');
 Route::get('/diet', [DietController::class, 'index'])->name('diet');
+//Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
 
 Route::get('/exercises/show', [ExerciseController::class, 'show'])->name('exercises.show');
 Route::get('/foods/show', [FoodController::class, 'show'])->name('foods.show');

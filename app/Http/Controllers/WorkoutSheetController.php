@@ -42,6 +42,13 @@ class WorkoutSheetController extends Controller{
         
         return response()->json($workoutSheet); // Adicionado retorno JSON
     }
+    
+    // public function getUserSheets() {
+    //     $user = Auth::user();
+    //     $workoutSheets = $user->workoutSheets()->get(['id', 'name']);
+        
+    //     return response()->json($workoutSheets);
+    // }
 
     /**
      * Salva uma nova ficha de treino no banco de dados.
@@ -83,13 +90,13 @@ class WorkoutSheetController extends Controller{
     /**
      * Exibe o formulário de edição de uma ficha.
      */
-    public function edit($id)
-    {
-        $workoutSheet = WorkoutSheet::where('user_id', Auth::id())->findOrFail($id);
+    public function edit($id){
 
-        return inertia('WorkoutSheets/Edit', [
-            'workoutSheet' => $workoutSheet,
-        ]);
+        Log::info('ID recebido: edit', ['id' => $id]);
+        $workoutSheet = WorkoutSheet::with('exercises')->where('user_id', Auth::id())->findOrFail($id);
+        Log::info('Ficha encontrada:', ['workoutSheet' => $workoutSheet]);
+        
+        return response()->json($workoutSheet);
     }
 
     /**
