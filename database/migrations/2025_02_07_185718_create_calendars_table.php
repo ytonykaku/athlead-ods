@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('workout_sheet_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('diet_id')->nullable()->constrained()->cascadeOnDelete();
-            $table->date('date');
+            $table->date('date')->nullable();
             $table->timestamps();
         });
     }
