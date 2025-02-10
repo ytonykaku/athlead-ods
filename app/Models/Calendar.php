@@ -10,24 +10,25 @@ class Calendar extends Model
     use HasFactory;
 
     protected $fillable = [
+        'date',
         'calendar_id',
-        'workoutSheet_id', 
+        'workout_sheet_id', 
         'diet_id',
         'user_id' 
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class);
     }
 
     public function workoutSheets()
     {
-        return $this->hasMany(WorkoutSheet::class, 'user_id', 'id');
+        return $this->belongsTo(WorkoutSheet::class, 'workout_sheet_id');
     }
 
     public function diet()
     {
-        return $this->hasMany(Diet::class, 'user_id', 'id');
+        return $this->belongsTo(Diet::class, 'diet_id');
     }
 }

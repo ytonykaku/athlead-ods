@@ -1,14 +1,35 @@
-import React, { useState } from 'react';
-import { Inertia } from '@inertiajs/inertia';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function RelatorioModal({ isOpen, onClose }) {
-    
+    const [entries, setEntries] = useState([]);
+
+    useEffect(() => {
+        if (isOpen) {
+            fetchRelatorio();
+        }
+    }, [isOpen]);
+
+    const fetchRelatorio = async () => {
+        try {
+            const response = await axios.get('/calendar/show');
+            
+            if (response.data && Array.isArray(response.data)){
+                
+                setEntries(response.data.entries);
+            } else {
+                console.warn('A resposta não contém uma lista válida de alimentos:', response.data);
+            } 
+        } catch (error) {
+            console.error('Erro ao buscar dados do calendário:', error);
+        }
+
+    }
     if (!isOpen) return null;
 
     return (
         <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
             <div className="bg-white rounded-lg shadow-lg w-2/3 p-6 relative overflow-hidden">
-               
                 <button 
                     onClick={onClose} 
                     className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl"
@@ -28,10 +49,19 @@ export default function RelatorioModal({ isOpen, onClose }) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="bg-white border border-gray-300">
-                                <td className="px-6 py-3">Ficha Exemplo</td>
-                                <td className="px-6 py-3">Dieta Exemplo</td>
-                            </tr>
+                            {entries.length > 0 ? (
+                                entries.map((entry) => (
+                                    <tr key={entry.id} className="bg-white border border-gray-300">
+                                        <td className="px-6 py-3">{new Date(entry.date).toLocaleDateString()}</td>
+                                        <td className="px-6 py-3">{entry.workout_sheet ? entry.workout_sheet.name : 'Sem ficha'}</td>
+                                        <td className="px-6 py-3">{entry.diet ? entry.diet.name : 'Sem dieta'}</td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="3" className="px-6 py-3 text-center">Nenhum dado encontrado</td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>
