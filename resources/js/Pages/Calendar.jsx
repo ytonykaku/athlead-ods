@@ -8,6 +8,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Modal from 'react-modal';
 import DataTable from '@/Components/DataTable';
 import DataTableDiet from '@/Components/DataTableDiet';
+import RelatorioModal from '@/Components/RelatorioModal';
 
 Modal.setAppElement('#app'); // ou o id principal do seu root HTML
 
@@ -21,17 +22,27 @@ export default function Calendar() {
   
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
   
   const [selectedSheet, setSelectedSheet] = useState('');
   const [selectedDiet, setSelectedDiet] = useState('');
-
+  
   const [calendarEntries, setCalendarEntries] = useState([]);
-
+  
   // Exemplo para gerar dias do mês (simplificado, ajuste conforme o mês)
   const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
   const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRelatorioModalOpen, setIsRelatorioModalOpen] = useState(false);
+  
+  const openRelatorioModal = () => {
+    setIsRelatorioModalOpen(true);
+  };
+
+  const closeRelatorioModal = () => {
+    setIsRelatorioModalOpen(false);
+  };
 
   useEffect(() => {
     axios.post('/calendar/getEntries', {
@@ -90,10 +101,10 @@ export default function Calendar() {
           ))}
         </select>
           <button className="bg-gray-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            style={{marginLeft: '20px' }} >
-            
-            Baixar: Report treinos
+            style={{marginLeft: '20px'}} onClick={() => setIsRelatorioModalOpen(true)}>
+            Relatório 
           </button>
+          <RelatorioModal isOpen={isRelatorioModalOpen} onClose={closeRelatorioModal} />
 
         {/* Navegação por mês */}
         <div className="flex justify-between my-4">

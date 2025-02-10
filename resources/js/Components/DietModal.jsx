@@ -74,7 +74,7 @@ export default function DietModal({ isOpen, onClose }) {
 
         // Now send the workout sheet with exercises and their IDs
         try {
-            const response = await axios.post('/diets', {
+            const response = await axios.post('/diet', {
                 name, // Workout sheet name
                 meals: validMeals,  // Exercises with IDs
             });

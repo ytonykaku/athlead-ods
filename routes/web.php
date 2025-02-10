@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
    
     Route::resource('workout-sheets', WorkoutSheetController::class);
-    Route::resource('diets', DietController::class);
+    Route::resource('diet', DietController::class);
     Route::resource('calendar', CalendarController::class);
 
     Route::post('/calendar/getEntries', [CalendarController::class, 'getEntries'])->name('calendar.getEntries');
@@ -82,7 +82,7 @@ Route::get('/hireus', function(){
 })->name('hireus');
 
 Route::get('/exercises', [WorkoutSheetController::class, 'index'])->name('exercises');
-Route::get('/diet', [DietController::class, 'index'])->name('diet');
+//Route::get('/diet', [DietController::class, 'index'])->name('diet');
 //Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
 
 Route::get('/exercises/show', [ExerciseController::class, 'show'])->name('exercises.show');

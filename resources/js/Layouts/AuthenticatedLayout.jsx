@@ -42,8 +42,8 @@ export default function AuthenticatedLayout({ header, children }) {
                                     Fichas de exercício
                                 </NavLink>
                                 <NavLink
-                                    href={route('diet')}
-                                    active={route().current('diet')}
+                                    href={route('diet.index')}
+                                    active={route().current('diet.index')}
                                 >
                                     Dieta
                                 </NavLink>
