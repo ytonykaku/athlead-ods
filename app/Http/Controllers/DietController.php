@@ -68,7 +68,7 @@ class DietController extends Controller
      */
     public function show($id)
     {
-        $diet = Diet::with('meals')->where('user_id', Auth::id())->findOrFail($id);
+        $diet = Diet::with('meals.food')->where('user_id', Auth::id())->findOrFail($id);
 
         return response()->json($diet); // Retorna a dieta em JSON
     }

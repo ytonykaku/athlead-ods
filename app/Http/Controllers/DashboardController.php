@@ -12,13 +12,14 @@ class DashboardController extends Controller
     {
         // Fetch the authenticated user
         $user = Auth::user();
-
+        $diets = $user->diet()->with('meals')->get();
         /*\Log::info('User data:', ['user' -> $user]);*/
         
         // Return a view with the user data
         
         return Inertia::render('Dashboard', [
             'user' => $user,
+            'diets' => $diets
         ]);
     }
 }

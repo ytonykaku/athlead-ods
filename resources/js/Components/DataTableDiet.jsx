@@ -20,7 +20,7 @@ export default function DataTableDiet({label1, label4, data = [] }) {
 
     const handleDelete = (id) => {
         if (confirm('Você tem certeza que deseja deletar esta ficha?')) {
-            Inertia.delete(route('diets.destroy', id), {
+            Inertia.delete(route('diet.destroy', id), {
                 onSuccess: () => alert('Dieta excluída com sucesso!'),
                 onError: (errors) => console.error(errors),
             });

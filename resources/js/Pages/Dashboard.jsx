@@ -1,12 +1,26 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, usePage } from '@inertiajs/react';
+import { useState } from 'react';
+
 import UserInfoTable from '../Components/UserInfoTable';
 import Frequency from '../Components/Frequency';
 
-export default function Dashboard() {
-    const { user } = usePage().props;
+import RelatorioDashboModal from '@/Components/RelatorioDashboModal';
+import { data } from 'autoprefixer';
 
-    console.log(user);
+export default function Dashboard() {
+    const { user , diets} = usePage().props;
+
+   console.log(diets);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
     return (
         <AuthenticatedLayout
@@ -24,12 +38,13 @@ export default function Dashboard() {
                     <Frequency />
                     
                     <button
-                    
+                        onClick={()=> setIsModalOpen(true)}
                         className="rounded-md px-3 py-2 text-black ring-1 ring-black transition hover:text-black/70 focus:outline-none focus-visible:ring-black dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white float-right border border-black"
                         style={{ marginTop: '-43px' }}                   
                     >
                         Relatório de Calorias
                     </button>
+                    <RelatorioDashboModal isOpen={isModalOpen} onClose={closeModal }data={diets} />
                 </div>
             </div>
         </AuthenticatedLayout>

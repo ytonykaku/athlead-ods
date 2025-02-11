@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('calendar', CalendarController::class);
     Route::resource('exercises', ExerciseController::class);
     Route::resource('foods', FoodController::class);
-    
+
     Route::post('/calendar/getEntries', [CalendarController::class, 'getEntries'])->name('calendar.getEntries');
     Route::post('/calendar/store', [CalendarController::class, 'store'])->name('calendar.store');
     

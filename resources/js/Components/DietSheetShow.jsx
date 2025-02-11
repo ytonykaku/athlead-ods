@@ -19,7 +19,7 @@ export default function WorkoutSheetShow({ isOpen, onClose, sheetId }) {
 
     const fetchSheetData = async (id) => {
         try {
-            const response = await axios.get(`/diets/${id}`);
+            const response = await axios.get(`/diet/${id}`);
             setSheet(response.data); // Preencher a ficha
             setFormFields(
                 response.data.meals.map((meal) =>({
@@ -66,7 +66,7 @@ export default function WorkoutSheetShow({ isOpen, onClose, sheetId }) {
                 food: String(field.food),
             }));
     
-            await axios.put(`/diets/${sheetId}`, {
+            await axios.put(`/diet/${sheetId}`, {
                 name: sheet.name,
                 meals: updatedFormFields,
             });
