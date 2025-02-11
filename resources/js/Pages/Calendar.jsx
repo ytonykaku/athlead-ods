@@ -127,78 +127,75 @@ export default function Calendar() {
 
         {/* Modal para registrar exercício */}
         <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
-          
-          {/* Botão para fechar o modal*/}
-          <button onClick={() => setIsModalOpen(false)}
-            className="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
-            &times;
-          </button>
-          
-          <h2>Registro de exercício para o dia {selectedDay}</h2>
-          <label>Ficha de Exercício:</label>
-        
-          <select value={selectedSheet} onChange={(e) => setSelectedSheet(e.target.value)}>
-            <option value="">Selecione uma ficha</option>
-            
-            {workoutSheets.map((sheet) => (
-              <option key={sheet.id} value={sheet.id}>{sheet.name}</option>           
-            ))}
-          </select>
-          
-          <button onClick={handleSaveEntry}
-            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
-            Confirmar
-          </button>
+  <div className="p-6">
+    {/* Botão para fechar o modal */}
+    <button
+      onClick={() => setIsModalOpen(false)}
+      className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
+    >
+      &times;
+    </button>
 
-          <button onClick={() => setIsModalOpen(false)}
-            className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700" >
-            Cancelar
-          </button>
+    {/* Título do modal */}
+    <h2 className="text-2xl font-bold mb-6">Registro para o dia {selectedDay}</h2>
 
-          <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
-            <span>Fichas selecionadas</span>
-            <DataTable
-              label1={"Nome da ficha de exercício"}
-              label4={"Ações"}
-              data={calendarEntries.filter(entry => new Date(entry.date).getDate() === selectedDay)}
-            />
-          </div>
+    {/* Seção de Ficha de Exercício */}
+    <div className="mb-8">
+      <h3 className="text-xl font-semibold mb-4">Ficha de Exercício</h3>
+      <div className="flex flex-col space-y-4">
+        <label className="text-gray-700">Selecione uma ficha:</label>
+        <select
+          value={selectedSheet}
+          onChange={(e) => setSelectedSheet(e.target.value)}
+          className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">Selecione uma ficha</option>
+          {workoutSheets.map((sheet) => (
+            <option key={sheet.id} value={sheet.id}>
+              {sheet.name}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
 
+    {/* Seção de Dieta */}
+    <div className="mb-8">
+      <h3 className="text-xl font-semibold mb-4">Dieta</h3>
+      <div className="flex flex-col space-y-4">
+        <label className="text-gray-700">Selecione uma dieta:</label>
+        <select
+          value={selectedDiet}
+          onChange={(e) => setSelectedDiet(e.target.value)}
+          className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">Selecione uma dieta</option>
+          {diets.map((diet) => (
+            <option key={diet.id} value={diet.id}>
+              {diet.name}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
 
-
-
-
-          <h2>Registro dieta para o dia {selectedDay}</h2>
-          <label>Dieta:</label>
-        
-          <select value={selectedDiet} onChange={(e) => setSelectedDiet(e.target.value)}>
-            <option value="">Selecione uma dieta</option>
-            
-            {diets.map((sheet) => (
-              <option key={sheet.id} value={sheet.id}>{sheet.name}</option>           
-            ))}
-          </select>
-          
-          <button onClick={handleSaveEntry}
-            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
-            Confirmar
-          </button>
-
-          <button onClick={() => setIsModalOpen(false)}
-            className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700" >
-            Cancelar
-          </button>
-
-          <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
-            <span>Dietas selecionadas</span>
-            <DataTableDiet
-              label1={"Nome da dieta"}
-              label4={"Ações"}
-              data={calendarEntries.filter(entry => new Date(entry.date).getDate() === selectedDay)}
-            />   
-          </div>
-
-        </Modal>
+    {/* Botões de ação */}
+    <div className="flex space-x-4 mt-6">
+      <button
+        onClick={handleSaveEntry}
+        className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition duration-300"
+      >
+        Confirmar
+      </button>
+      <button
+        onClick={() => setIsModalOpen(false)}
+        className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition duration-300"
+      >
+        Cancelar
+      </button>
+    </div>
+  </div>
+</Modal>
       </div>
     </AuthenticatedLayout>
   );

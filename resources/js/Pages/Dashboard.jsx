@@ -28,7 +28,7 @@ export default function Dashboard() {
                         className="rounded-md px-3 py-2 text-black ring-1 ring-black transition hover:text-black/70 focus:outline-none focus-visible:ring-black dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white float-right border border-black"
                         style={{ marginTop: '-43px' }}                   
                     >
-                        Baixar: Report Diário de Calorias
+                        Relatório de Calorias
                     </button>
                 </div>
             </div>
