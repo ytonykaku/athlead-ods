@@ -36,7 +36,7 @@ export default function WorkoutSheetShow({ isOpen, onClose, sheetId }) {
 
     const fetchExerciseOptions = async () => {
         try {
-            const response = await axios.get('/exercises/show');
+            const response = await axios.get('/exercises/${exerciseId}');
             setExerciseOptions(response.data || []);
         } catch (error) {
             console.error('Erro ao buscar exercícios:', error.response?.data || error.message);

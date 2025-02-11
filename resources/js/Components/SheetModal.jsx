@@ -21,7 +21,7 @@ export default function SheetModal({ isOpen, onClose }) {
 
     const fetchExercicesOptions = async () => {
         try {
-            const response = await axios.get('/exercises/show');
+            const response = await axios.get('/exercises/${exerciseId}');
             if (response.data && Array.isArray(response.data)) {
                 setExerciseOptions(response.data);
             } else {
