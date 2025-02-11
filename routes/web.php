@@ -24,10 +24,6 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::get('/calendar', function () {
-//     return Inertia::render('Calendar');
-// })->middleware(['auth', 'verified'])->name('calendar');
-
 Route::middleware('auth')->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -37,7 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('workout-sheets', WorkoutSheetController::class);
     Route::resource('diet', DietController::class);
     Route::resource('calendar', CalendarController::class);
-
+    Route::resource('exercises', ExerciseController::class);
+    Route::resource('foods', FoodController::class);
     
     Route::post('/calendar/getEntries', [CalendarController::class, 'getEntries'])->name('calendar.getEntries');
     Route::post('/calendar/store', [CalendarController::class, 'store'])->name('calendar.store');
@@ -81,13 +78,5 @@ Route::get('/hireus', function(){
         'phpVersion' => PHP_VERSION,
     ]);
 })->name('hireus');
-
-Route::get('/exercises', [WorkoutSheetController::class, 'index'])->name('exercises');
-//Route::get('/diet', [DietController::class, 'index'])->name('diet');
-//Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
-
-Route::get('/exercises/show', [ExerciseController::class, 'show'])->name('exercises.show');
-Route::get('/foods/show', [FoodController::class, 'show'])->name('foods.show');
-
 
 require __DIR__.'/auth.php';

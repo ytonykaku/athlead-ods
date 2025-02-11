@@ -36,8 +36,8 @@ export default function AuthenticatedLayout({ header, children }) {
                                     Calendário
                                 </NavLink>
                                 <NavLink
-                                    href={route('exercises')}
-                                    active={route().current('exercises')}
+                                    href={route('workout-sheets.index')}
+                                    active={route().current('workout-sheets.index')}
                                 >
                                     Fichas de exercício
                                 </NavLink>
