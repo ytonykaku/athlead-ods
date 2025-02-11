@@ -1,49 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export default function ExerciseModal({isOpen, onClose}) {
-    const [name, setName] = useState('');
-    const [exerciseList, setExerciseList] = useState([
-        { name: ''}
-    ]);
+export default function ExerciseModal({ isOpen, onClose, exerciseId }) {
+    const [exerciseList, setExerciseList] = useState([{ name: '' }]);
 
-    const addExercise = () => {
-        setExerciseList([...exerciseList, { name: '' }]);
+    // Carrega os dados do exercício se exerciseId estiver presente
+    useEffect(() => {
+        if (isOpen && exerciseId) {
+            fetchExerciseData(exerciseId);
+        } else {
+            // Reseta o estado se o modal for aberto para criação
+            setExerciseList([{ name: '' }]);
+        }
+    }, [isOpen, exerciseId]);
+
+    const fetchExerciseData = async (id) => {
+        try {
+            const response = await axios.get(`/exercises/${id}`);
+            setExerciseList([{ name: response.data.name }]);
+        } catch (error) {
+            console.error('Erro ao buscar exercício:', error.response?.data || error.message);
+        }
     };
 
-    const removeExercise = (index) => {
+    const handleChange = (index, value) => {
         const newList = [...exerciseList];
-        newList.splice(index, 1);
-        setExerciseList(newList);
-    };
-
-    const handleChange = (index, field, value) => {
-        const newList = [...exerciseList];
-        newList[index][field] = value;
+        newList[index].name = value;
         setExerciseList(newList);
     };
 
     const handleConfirm = async () => {
-        console.log('Enviando dados:',{exercise: name, exercises :exerciseList});
+        const validExercises = exerciseList.filter(exercise => exercise.name.trim() !== '');
 
-        const exerciseWithId = exerciseList.map((exercise) => ({ 
-            name: exercise.name,
-        }));
-
-        console.log('Exercícios IDs:', exerciseWithId);
-
-        const validExercises = exerciseWithId.filter(item => item !== null);
+        if (validExercises.length === 0) {
+            console.error('Nenhum exercício válido para cadastrar.');
+            return;
+        }
 
         try {
-            const response = await axios.post('/exercises', { 
-                exercise: name,
-                exercises: validExercises
-            });
-
-            console.log('Exercício cadastrado com sucesso:', response.data);
+            if (exerciseId) {
+                // Se exerciseId existe, é uma edição (PUT)
+                await axios.put(`/exercises/${exerciseId}`, {
+                    name: exerciseList[0].name,
+                });
+                console.log('Exercício atualizado com sucesso.');
+            } else {
+                // Caso contrário, é uma criação (POST)
+                for (const exercise of validExercises) {
+                    await axios.post('/exercises', {
+                        name: exercise.name,
+                    });
+                }
+                console.log('Exercícios cadastrados com sucesso.');
+            }
             onClose();
-        }
-        catch (error) {
+        } catch (error) {
             console.error('Erro ao enviar dados:', error.response?.data || error.message);
         }
     };
@@ -60,7 +71,9 @@ export default function ExerciseModal({isOpen, onClose}) {
                     &times;
                 </button>
 
-                <h2 className="text-lg font-semibold text-gray-800 mb-4">Adicionar Exercícios</h2>
+                <h2 className="text-lg font-semibold text-gray-800 mb-4">
+                    {exerciseId ? 'Editar Exercício' : 'Adicionar Exercício'}
+                </h2>
 
                 <div>
                     {exerciseList.map((exercise, index) => (
@@ -68,34 +81,21 @@ export default function ExerciseModal({isOpen, onClose}) {
                             <input
                                 type="text"
                                 placeholder="Nome do exercício"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                value={exercise.name}
+                                onChange={(e) => handleChange(index, e.target.value)}
                                 className="border-gray-300 rounded-lg p-2 w-1/2"
                                 required
                             />
-                            <button
-                                onClick={() => removeExercise(index)}
-                                className="text-red-600 font-medium hover:underline"
-                            >
-                                Remover
-                            </button>
                         </div>
                     ))}
                 </div>
-
-                <button
-                    onClick={addExercise}
-                    className="text-blue-600 font-medium hover:underline mb-4"
-                >
-                    + Adicionar exercício
-                </button>
 
                 <div className="flex justify-end space-x-4">
                     <button
                         onClick={handleConfirm}
                         className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
                     >
-                        Confirmar
+                        {exerciseId ? 'Salvar' : 'Confirmar'}
                     </button>
                     <button
                         onClick={onClose}
