@@ -22,7 +22,7 @@ class Calendar extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function workoutSheets()
+    public function workoutSheet()
     {
         return $this->belongsTo(WorkoutSheet::class, 'workout_sheet_id');
     }

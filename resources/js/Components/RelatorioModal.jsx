@@ -14,12 +14,11 @@ export default function RelatorioModal({ isOpen, onClose }) {
         try {
             const response = await axios.get('/calendar/show');
             
-            if (response.data && Array.isArray(response.data)){
-                
-                setEntries(response.data.entries);
+            if (Array.isArray(response.data)) {
+                setEntries(response.data);
             } else {
-                console.warn('A resposta não contém uma lista válida de alimentos:', response.data);
-            } 
+                console.warn('A resposta do servidor não é uma lista:', response.data);
+            }
         } catch (error) {
             console.error('Erro ao buscar dados do calendário:', error);
         }
@@ -52,9 +51,9 @@ export default function RelatorioModal({ isOpen, onClose }) {
                             {entries.length > 0 ? (
                                 entries.map((entry) => (
                                     <tr key={entry.id} className="bg-white border border-gray-300">
-                                        <td className="px-6 py-3">{new Date(entry.date).toLocaleDateString()}</td>
-                                        <td className="px-6 py-3">{entry.workout_sheet ? entry.workout_sheet.name : 'Sem ficha'}</td>
-                                        <td className="px-6 py-3">{entry.diet ? entry.diet.name : 'Sem dieta'}</td>
+                                        <td className="px-6 py-3">{new Date(entry.date).toLocaleDateString('pt-BR')}</td>
+                                        <td className="px-6 py-3">{entry.workout_sheet?.name || 'Sem ficha'}</td>
+                                        <td className="px-6 py-3">{entry.diet?.name || 'Sem dieta'}</td>
                                     </tr>
                                 ))
                             ) : (

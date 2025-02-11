@@ -59,9 +59,10 @@ class CalendarController extends Controller{
     }
 
     public function show(Request $request){ 
-        $query = Calendar::where('user_id', Auth::user()->id)->with(['workout_sheets', 'diet']);
+        $query = Calendar::where('user_id', Auth::user()->id)->with(['workoutSheet', 'diet']);
         
-        // Remover o filtro de data, caso não seja fornecido um parâmetro 'date'
+        Log::info('Query:', ['query' => $query]);
+
         if ($request->query('date')) {
             $query->where('date', $request->query('date'));
         }

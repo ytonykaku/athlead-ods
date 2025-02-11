@@ -16,9 +16,9 @@ Modal.setAppElement('#app'); // ou o id principal do seu root HTML
 export default function Calendar() {
   const { user, workoutSheets, diets } = usePage().props;
 
-  console.log(user);
-  console.log(workoutSheets);
-  console.log(diets);
+  // console.log(user);
+  //console.log(workoutSheets);
+  //console.log(diets);
   
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
