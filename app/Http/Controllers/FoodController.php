@@ -92,8 +92,13 @@ public function update(Request $request, string $id)
         'message' => 'Alimento atualizado com sucesso!',
         'food' => $food,
     ], 200);
-}
 
+}
+    public function showID($id){ 
+        $exercise = Food::findOrFail($id); // Busca o exercício pelo ID
+        
+        return response()->json($exercise);
+    }
     /**
      * Remove um alimento específico.
      */

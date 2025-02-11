@@ -81,6 +81,11 @@ class ExerciseController extends Controller
         ], 200); // Retorna uma resposta JSON
     }
 
+    public function showID($id){ 
+        $exercise = Exercise::findOrFail($id); // Busca o exercício pelo ID
+        
+        return response()->json($exercise);
+    }
     /**
      * Remove um exercício específico.
      */

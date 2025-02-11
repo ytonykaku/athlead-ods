@@ -18,7 +18,7 @@ export default function FoodModal({ isOpen, onClose, foodId }) {
 
     const fetchFoodData = async (id) => {
         try {
-            const response = await axios.get(`/foods/${id}`);
+            const response = await axios.get(`/foods/showID/${id}`);
             setFoodList([{
                 name: response.data.name,
                 calories: response.data.calories,

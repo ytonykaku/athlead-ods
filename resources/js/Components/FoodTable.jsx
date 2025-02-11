@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 import FoodModal from './FoodModal'; // Importe o modal
 import '../../css/H1.css';

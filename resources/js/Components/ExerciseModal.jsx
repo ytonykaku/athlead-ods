@@ -16,7 +16,7 @@ export default function ExerciseModal({ isOpen, onClose, exerciseId }) {
 
     const fetchExerciseData = async (id) => {
         try {
-            const response = await axios.get(`/exercises/${id}`);
+            const response = await axios.get(`/exercises/showID/${id}`);
             setExerciseList([{ name: response.data.name }]);
         } catch (error) {
             console.error('Erro ao buscar exercício:', error.response?.data || error.message);
