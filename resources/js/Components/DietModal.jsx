@@ -112,6 +112,14 @@ export default function DietModal({ isOpen, onClose }) {
                     />
                 </div>
 
+                
+                {/* Headers da tabela */}
+                <div className="grid grid-cols-5 gap-4 text-sm font-medium text-gray-700 mb-2">
+                    <span>Nome da Refeição</span>
+                    <span>Quantidade (em 100g)</span>
+                    <span>Horário</span>
+                </div>
+
                 <div>
                     {formFields.map((field, index) => (
                         <div key={index} className="flex space-x-4 mb-4 items-center">

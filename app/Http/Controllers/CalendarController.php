@@ -71,5 +71,22 @@ class CalendarController extends Controller{
     
         return response()->json($entries);
     }   
+
+    public function destroy($id) {
+        $user = Auth::user();
+        
+        // Encontrar o registro do calendário
+        $calendarEntry = Calendar::where('id', $id)->where('user_id', $user->id)->first();
+    
+        if (!$calendarEntry) {
+            return response()->json(['error' => 'Registro não encontrado'], 404);
+        }
+    
+        // Deletar o registro
+        $calendarEntry->delete();
+    
+        return response()->json(['success' => true, 'message' => 'Registro deletado com sucesso']);
+    }
+    
       
 }

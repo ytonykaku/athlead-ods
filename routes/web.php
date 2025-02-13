@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/calendar/getEntries', [CalendarController::class, 'getEntries'])->name('calendar.getEntries');
     Route::post('/calendar/store', [CalendarController::class, 'store'])->name('calendar.store');
+    Route::delete('/calendar/{id}', [CalendarController::class, 'destroy'])->middleware('auth');
+
     
     Route::get('/foods/showID/{id}', [FoodController::class, 'showID'])->name('foods.showID');
     Route::get('/exercises/showID/{id}', [ExerciseController::class, 'showID'])->name('exercises.showID');
