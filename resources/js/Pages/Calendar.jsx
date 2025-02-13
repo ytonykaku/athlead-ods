@@ -163,25 +163,44 @@ export default function Calendar() {
 
                         <h2 className="text-2xl font-bold mb-6">Registro para o dia {selectedDay}</h2>
 
-                        {/* Seção de Ficha de Exercício */}
-                        <div className="mb-8">
+                            {/* Seção de Ficha de Exercício */}
+                            <div className="mb-8">
                             <h3 className="text-xl font-semibold mb-4">Ficha de Exercício</h3>
-                            {selectedEntry?.workout_sheet ? (
-                                <p className="text-blue-700">{selectedEntry.workout_sheet.name}</p>
-                            ) : (
-                                <p>Nenhuma ficha registrada</p>
-                            )}
+                            <div className="flex flex-col space-y-4">
+                                <label className="text-gray-700">Selecione uma ficha:</label>
+                                <select
+                                value={selectedSheet}
+                                onChange={(e) => setSelectedSheet(e.target.value)}
+                                className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                                <option value="">Selecione uma ficha</option>
+                                {workoutSheets.map((sheet) => (
+                                    <option key={sheet.id} value={sheet.id}>
+                                    {sheet.name}
+                                    </option>
+                                ))}
+                                </select>
+                            </div>
                         </div>
 
                         {/* Seção de Dieta */}
                         <div className="mb-8">
-                            <h3 className="text-xl font-semibold mb-4">Dieta</h3>
-                            {selectedEntry?.diet ? (
-                                <p className="text-yellow-700">{selectedEntry.diet.name}</p>
-                            ) : (
-                                <p>Nenhuma dieta registrada</p>
-                            )}
+                        <h3 className="text-xl font-semibold mb-4">Dieta</h3>
+                        <div className="flex flex-col space-y-4">
+                            <label className="text-gray-700">Selecione uma dieta:</label>
+                            <select
+                            value={selectedDiet}
+                            onChange={(e) => setSelectedDiet(e.target.value)}
+                            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">Selecione uma dieta</option>
+                            {diets.map((diet) => (
+                              <option key={diet.id} value={diet.id}>
+                                {diet.name}
+                              </option>
+                            ))}
+                          </select>
                         </div>
+                      </div>
 
                         {/* Botões de ação */}
                         <div className="flex space-x-4 mt-6">
